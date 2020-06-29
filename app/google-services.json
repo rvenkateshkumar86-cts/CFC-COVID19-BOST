@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "475940918524",
+    "firebase_url": "https://cfc-covid19-spartan.firebaseio.com",
+    "project_id": "cfc-covid19-spartan",
+    "storage_bucket": "cfc-covid19-spartan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475940918524:android:c4fa378827ed6a93b3f379",
+        "android_client_info": {
+          "package_name": "com.ibm.mobilefirstplatform.clientsdk.android.push"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475940918524-54p1uqmb6fd9iub36vmcpb10gjuh9rlc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHddhneeThoIlCv1imS-KwizWuqTAtIzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475940918524-54p1uqmb6fd9iub36vmcpb10gjuh9rlc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

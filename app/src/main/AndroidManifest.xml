@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ibm.mobilefirstplatform.clientsdk.android.push">
+    <!-- Necessary Permissions for Receiving Push Notifications -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar">
+        <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.UserTrackerActivity" android:launchMode="standard" />
+        <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.ChatbotActivity" android:launchMode="standard" />
+        <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MedicalAssistanceActivity"  android:launchMode="standard" />
+        <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.CheckTemperatureActivity" android:launchMode="standard" />
+        <activity
+            android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Notification Intent -->
+            <intent-filter>
+                <action android:name="com.ibm.mobilefirstplatform.clientsdk.android.push.IBMPushNotification" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".api.MFPPushNotificationHandler"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <service
+            android:name=".api.MFPPushIntentService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".api.MFPPush"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" /> <!-- Mqtt Service -->
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+    </application>
+
+</manifest>
