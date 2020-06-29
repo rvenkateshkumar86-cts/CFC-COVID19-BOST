@@ -12,7 +12,8 @@
     <string name="title_activity_check_temperature">CheckTemperatureActivity</string>
     <string name="appGUID">f8584c85-8a2f-45cc-96a2-0b06f25ef60c</string>
     <string name="pushClientSecret">"402d4529-6129-4caf-87a9-eb21170c52ba"</string>
-    <string name="pushBackUrl">https://us-south.functions.cloud.ibm.com/api/v1/web/VenkateshKumar.R2%40cognizant.com_dev/default/discovery-covid.json</string>
+    <string name="discoveryFunctionUrl">https://us-south.functions.cloud.ibm.com/api/v1/web/VenkateshKumar.R2%40cognizant.com_dev/default/discovery-covid.json</string>
+    <string name="pushBackUrl">https://imfpush.ng.bluemix.net/imfpush/v1/apps/f8584c85-8a2f-45cc-96a2-0b06f25ef60c/messages</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

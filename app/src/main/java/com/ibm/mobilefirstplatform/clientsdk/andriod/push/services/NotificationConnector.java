@@ -2,68 +2,89 @@ package com.ibm.mobilefirstplatform.clientsdk.andriod.push.services;
 
 import android.content.Context;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.IAMToken;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.NewsResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
-import java.util.TimeZone;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public final class NotificationConnector {
     private final String backendUrl;
-    private RequestQueue queue;
-    private TimeZone timeZone;
+    private final String functionDiscoveryUrl;
+    private final String clientSecret;
     private static NotificationConnector instance;
+    private final ObjectMapper mapper = new ObjectMapper();
 
 
-    private NotificationConnector(String backendUrl, Context context) {
+    private NotificationConnector(String backendUrl, String functionDiscoveryUrl, String clientSecret, Context context) {
         this.backendUrl = backendUrl;
-        this.queue = Volley.newRequestQueue(context);
-        this.timeZone = Calendar.getInstance().getTimeZone();
+        this.functionDiscoveryUrl = functionDiscoveryUrl;
+        this.clientSecret = clientSecret;
     }
 
-    public static void initialize(String backendUrl, Context context) {
-        instance = new NotificationConnector(backendUrl, context);
+    public static void initialize(String backendUrl, String functionDiscoveryUrl, String clientSecret, Context context) {
+        instance = new NotificationConnector(backendUrl, functionDiscoveryUrl, clientSecret, context);
     }
 
     public static NotificationConnector getInstance() {
         return instance;
     }
 
-    public void createTagAndTrigger(String tag, final OnCompletion onCompletion) {
-        JSONObject params = new JSONObject();
-        try {
-            params.put("tag", tag);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, backendUrl, params, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    onCompletion.onSuccess(response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    onCompletion.onError(error);
-                }
-            });
-            queue.add(jsonObjectRequest);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            onCompletion.onError(null);
+    public String getLatestNews() throws IOException, JSONException {
+        HttpURLConnection scoringConnection = null;
+        BufferedReader scoringBuffer = null;
+        StringBuffer jsonStringScoring = new StringBuffer();
+        URL scoringUrl = new URL(functionDiscoveryUrl);
+        scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
+        scoringConnection.setDoInput(true);
+        scoringConnection.setDoOutput(true);
+        scoringConnection.setRequestMethod("GET");
+        scoringConnection.setRequestProperty("Accept", "application/json");
+        scoringConnection.setRequestProperty("Content-Type", "application/json");
+        OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
+
+        scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
+        String lineScoring;
+        while ((lineScoring = scoringBuffer.readLine()) != null) {
+            jsonStringScoring.append(lineScoring);
         }
+        NewsResponse response = mapper.readValue(jsonStringScoring.toString(), NewsResponse.class);
+        return response.getResult();
     }
 
-    private String createCronTab(int seekBarValue) {
-        return "0 " + String.valueOf(17 + seekBarValue) + " * * *";
-    }
+    public void publishNews(String newsFeed) throws IOException, JSONException {
+        HttpURLConnection scoringConnection = null;
+        BufferedReader scoringBuffer = null;
+        StringBuffer jsonStringScoring = new StringBuffer();
+        URL scoringUrl = new URL(backendUrl);
+        scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
+        scoringConnection.setDoInput(true);
+        scoringConnection.setDoOutput(true);
+        scoringConnection.setRequestMethod("POST");
+        scoringConnection.setRequestProperty("Accept", "application/json");
+        scoringConnection.setRequestProperty("Content-Type", "application/json");
+        scoringConnection.setRequestProperty("clientSecret", clientSecret);
+        JSONObject data = new JSONObject();
+        JSONObject message = new JSONObject();
+        message.put("alert", newsFeed);
+        data.put("message", message);
+        OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
+        String payload = data.toString();
+        writer.write(payload);
+        writer.close();
 
-    public interface OnCompletion {
-        void onSuccess(JSONObject response);
-        void onError(VolleyError error);
+        scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
+        String lineScoring;
+        while ((lineScoring = scoringBuffer.readLine()) != null) {
+            jsonStringScoring.append(lineScoring);
+        }
     }
 }

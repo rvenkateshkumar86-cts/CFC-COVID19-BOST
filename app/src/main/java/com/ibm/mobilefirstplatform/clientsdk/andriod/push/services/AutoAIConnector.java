@@ -62,6 +62,7 @@ public final class AutoAIConnector {
             String payload = "{\"input_data\":[{\"fields\":[\"age\",\"job\",\"marital\",\"education\",\"default\",\"balance\",\"housing\",\"loan\",\"contact\",\"day\",\"month\",\"duration\",\"campaign\",\"pdays\",\"previous\",\"poutcome\"],\"values\":[[" + patient.getAge() + ",\"" + patient.getJob() + "\",\"" + patient.getMarital() + "\"," + patient.getEducation() + "," + "null,"+ patient.getBalance() +"," + patient.getHousing() + "," + patient.getLoan() + "," + patient.getContact() + "," + patient.getDay() + "," + patient.getMonth() + "," + patient.getDuration() + "," + patient.getCampaign() + "," + patient.getPdays() + "," + patient.getPrevious() + "," + patient.getPoutcome() + "]]}]}";
             writer.write(payload);
             writer.close();
+            String pay = "\"" + patient.getCampaign() + "\"";
 
             scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
             String lineScoring;
@@ -112,4 +113,5 @@ public final class AutoAIConnector {
         IAMToken token = mapper.readValue(jsonStringScoring.toString(), IAMToken.class);
         return token;
     }
+
 }

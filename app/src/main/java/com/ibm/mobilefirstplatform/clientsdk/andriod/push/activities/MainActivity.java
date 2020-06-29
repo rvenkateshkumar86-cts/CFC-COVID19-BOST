@@ -38,6 +38,7 @@ import com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPSimplePushNotif
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,11 +65,12 @@ public class MainActivity extends Activity {
         String appGuid = getResources().getString(R.string.appGUID);
         String clientSecret = getResources().getString(R.string.pushClientSecret);
         String pushBackendURL = getResources().getString(R.string.pushBackUrl);
+        String functionDiscoveryURL = getResources().getString(R.string.discoveryFunctionUrl);
         // Initialize Push client
         // You can find your App Guid and Client Secret by navigating to the Configure section of your Push dashboard, click Mobile Options (Upper Right Hand Corner)
         // TODO: Please replace <APP_GUID> and <CLIENT_SECRET> with a valid App GUID and Client Secret from the Push dashboard Mobile Options
         push.initialize(this, appGuid, clientSecret);
-        NotificationConnector.initialize(pushBackendURL, getApplicationContext());
+        NotificationConnector.initialize(pushBackendURL, functionDiscoveryURL, clientSecret, getApplicationContext());
         // Create notification listener and enable pop up notification when a message is received
         notificationListener = new MFPPushNotificationListener() {
             @Override
@@ -85,7 +87,7 @@ public class MainActivity extends Activity {
                                 })
                                 .show();
                     }
-                });
+            });
             }
         };
         this.registerDevice();
@@ -125,7 +127,7 @@ public class MainActivity extends Activity {
                 try {
                     JSONObject responseJSON = new JSONObject(resp[1]);
                     setStatus("Device Registered Successfully with USER ID " + responseJSON.getString("userId"), true);
-                    getSubscriptions();
+                    createSchedulerForSubscribe();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -174,147 +176,16 @@ public class MainActivity extends Activity {
         {
             public void run()
             {
-                final String tagBuilt = "Push.ALL";
-                if (tagBuilt != null && !tagBuilt.equals("")) {
-                    tagFromService(tagBuilt, new Tags() {
-                        @Override
-                        public void isExisting(Boolean exists) {
-                            if (exists != null) {
-                                if (exists) {
-                                    subscribeToTag(tagBuilt);
-                                } else {
-                                    // create new tag
-                                    NotificationConnector.getInstance().createTagAndTrigger(tagBuilt, new NotificationConnector.OnCompletion() {
-                                        @Override
-                                        public void onSuccess(JSONObject response) {
-                                            subscribeToTag(tagBuilt);
-                                        }
-
-                                        @Override
-                                        public void onError(VolleyError error) {
-
-                                        }
-                                    });
-                                }
-                            }
-                        }
-                    });
+                try {
+                    String result = NotificationConnector.getInstance().getLatestNews();
+                    result = result.replace("\n", "");
+                    NotificationConnector.getInstance().publishNews(result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }},4000,1000 * 60 * 30);
-    }
-
-
-    //TODO: Call this method to get all the Tags
-
-    /**
-     * Call for getting the tags.
-     */
-    public void getTags() {
-
-        push.getTags(new MFPPushResponseListener<List<String>>() {
-            @Override
-            public void onSuccess(List<String> tags) {
-                setStatus("Retrieved Tags : " + tags, true);
-            }
-
-            @Override
-            public void onFailure(MFPPushException ex) {
-                setStatus("Error getting tags..." + ex.getMessage(), false);
-            }
-        });
-    }
-
-    //TODO: Call this method to get all the subscribed tags
-    /**
-     * Call for getting the subscribed tags.
-     */
-    public void getSubscriptions() {
-
-        push.getSubscriptions(new MFPPushResponseListener<List<String>>() {
-            @Override
-            public void onSuccess(List<String> tags) {
-                setStatus("Retrieved subscriptions : " + tags, true);
-                subscribedTags = tags;
-                createSchedulerForSubscribe();
-            }
-
-            @Override
-            public void onFailure(MFPPushException ex) {
-                setStatus("Error getting subscriptions.. "
-                        + ex.getMessage(), false);
-            }
-        });
-    }
-
-    //TODO: Call this method for subscribing to a tag
-    /**
-     * Call for subscribing to a tag.
-     */
-    public void subscribeToTag(final String tag) {
-
-        push.getSubscriptions(new MFPPushResponseListener<List<String>>() {
-            @Override
-            public void onSuccess(List<String> response) {
-                Log.d("subscrpitions", response.toString());
-                boolean alreadySubscribed = false;
-                for (String subscribedTag: response) {
-                    if (!subscribedTag.equals("Push.ALL") && !subscribedTag.equals(tag)) {
-                        unsubscribe(subscribedTag);
-                    }
-                    if (subscribedTag.equals(tag)) {
-                        alreadySubscribed = true;
-                    }
-                }
-                if (!alreadySubscribed) {
-                    subscribe(tag);
-                }
-            }
-
-            @Override
-            public void onFailure(MFPPushException exception) {
-                Log.d("exception ", "error");
-            }
-                });
-    }
-
-    private void subscribe(final String tag) {
-        push.subscribe(tag, new MFPPushResponseListener<String>() {
-            @Override
-            public void onSuccess(String response) {
-                Log.d("Subscribed to", tag);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setStatus("Successfully subscribed to tag: " + tag, true);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(final MFPPushException exception) {
-                Log.d("FAILED to subscribe", tag + " - " + exception.toString());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setStatus("Failed to subscribe to " + tag + ". " + exception.toString(), false);
-                    }
-                });
-            }
-        });
-    }
-
-    private void unsubscribe(final String tag) {
-        push.unsubscribe(tag, new MFPPushResponseListener<String>() {
-            @Override
-            public void onSuccess(String response) {
-                Log.d("Unsubscribed from", tag + " - " + response);
-            }
-
-            @Override
-            public void onFailure(MFPPushException exception) {
-                Log.d("FAILED to unsubscribe", tag + " - " + exception.toString());
-            }
-        });
+            }},4000,1000 * 60 * 5);
     }
 
     //TODO: Call this
@@ -357,29 +228,5 @@ public class MainActivity extends Activity {
                 bottomText.setText(bottomStatus);
             }
         });
-    }
-
-    private String buildTagName(String deviceId) {
-        return deviceId.toLowerCase().replace(" ", "-").concat("-any");
-    }
-
-    public void tagFromService(final String tag, final Tags tags) {
-        push.getTags(new MFPPushResponseListener<List<String>>() {
-            @Override
-            public void onSuccess(List<String> response) {
-                Log.d("Existing tags are", response.toString());
-                tags.isExisting(response.contains(tag));
-            }
-
-            @Override
-            public void onFailure(MFPPushException exception) {
-                Log.d("Failed to get tags", exception.getErrorMessage());
-                tags.isExisting(null);
-            }
-        });
-    }
-
-    interface Tags {
-        void isExisting(Boolean exists);
     }
 }
