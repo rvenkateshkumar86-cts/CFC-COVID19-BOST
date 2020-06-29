@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
                         }
                     });
                 }
-            }},4000,1000 * 60 * 60 * 30);
+            }},4000,1000 * 60 * 30);
     }
 
 
