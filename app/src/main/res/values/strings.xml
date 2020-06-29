@@ -2,7 +2,7 @@
     <string name="app_name">BOST</string>
     <string name="action_settings">Settings</string>
     <string name="RegistrationButton">Register Device</string>
-    <string name="DefaultLabel">Be On Safe Track</string>
+    <string name="DefaultLabel">BOST App</string>
     <string name="chatbot_button">Check for Chatbot Assitance</string>
     <string name="medical_button">Priortize Patient</string>
     <string name="temp_button">Check your Temperature</string>

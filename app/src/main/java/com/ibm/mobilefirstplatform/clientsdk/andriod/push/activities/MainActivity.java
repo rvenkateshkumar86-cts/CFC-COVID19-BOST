@@ -89,7 +89,6 @@ public class MainActivity extends Activity {
             }
         };
         this.registerDevice();
-        this.createSchedulerForSubscribe();
     }
 
     public void handleChatBot(View view) {
@@ -127,6 +126,7 @@ public class MainActivity extends Activity {
                     JSONObject responseJSON = new JSONObject(resp[1]);
                     setStatus("Device Registered Successfully with USER ID " + responseJSON.getString("userId"), true);
                     getSubscriptions();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -174,7 +174,7 @@ public class MainActivity extends Activity {
         {
             public void run()
             {
-                final String tagBuilt = buildTagName("Guest-" + deviceId);
+                final String tagBuilt = "Push.ALL";
                 if (tagBuilt != null && !tagBuilt.equals("")) {
                     tagFromService(tagBuilt, new Tags() {
                         @Override
@@ -235,6 +235,7 @@ public class MainActivity extends Activity {
             public void onSuccess(List<String> tags) {
                 setStatus("Retrieved subscriptions : " + tags, true);
                 subscribedTags = tags;
+                createSchedulerForSubscribe();
             }
 
             @Override
