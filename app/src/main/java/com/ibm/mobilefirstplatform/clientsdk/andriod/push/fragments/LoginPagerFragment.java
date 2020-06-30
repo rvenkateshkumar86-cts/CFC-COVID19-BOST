@@ -33,7 +33,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.security.ProviderInstaller;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.DeviceSensor;
@@ -80,7 +80,7 @@ public class LoginPagerFragment extends IoTStarterPagerFragment {
         Log.d(TAG, ".onResume() entered");
 
         super.onResume();
-        app = (IoTStarterApplication) getActivity().getApplication();
+        app = (BOSTStarterApplication) getActivity().getApplication();
         app.setCurrentRunningActivity(TAG);
 
         if (broadcastReceiver == null) {

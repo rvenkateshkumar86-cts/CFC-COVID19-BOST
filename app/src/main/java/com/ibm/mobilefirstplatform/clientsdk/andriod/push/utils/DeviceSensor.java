@@ -25,7 +25,7 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -41,7 +41,7 @@ import java.util.TimerTask;
 public class DeviceSensor implements SensorEventListener {
     private final String TAG = DeviceSensor.class.getName();
     private static DeviceSensor instance;
-    private final IoTStarterApplication app;
+    private final BOSTStarterApplication app;
     private final SensorManager sensorManager;
     private final Sensor accelerometer ;
     private final Sensor temperatureSensor;
@@ -55,7 +55,7 @@ public class DeviceSensor implements SensorEventListener {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         temperatureSensor =  sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        app = (IoTStarterApplication) context.getApplicationContext();
+        app = (BOSTStarterApplication) context.getApplicationContext();
     }
 
     /**

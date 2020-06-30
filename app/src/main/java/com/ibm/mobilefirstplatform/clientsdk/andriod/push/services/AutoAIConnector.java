@@ -17,11 +17,9 @@ import java.net.URL;
 
 public final class AutoAIConnector {
 
-    private static final String  IAMTOKENURL = "https://iam.cloud.ibm.com/identity/token";
+    private static final String ml_instance_id = "dc37a6a5-8a8f-4c99-9c18-f403a58dd069";
 
     private static final String IAM_API_KEY = "5JaxBbFaRLYTO_F_bVy3RJlHwNnvLl8zELiFwScx-89r";
-
-    private static final String ml_instance_id = "dc37a6a5-8a8f-4c99-9c18-f403a58dd069";
 
     private static final String predictionURL = "https://us-south.ml.cloud.ibm.com/v4/deployments/34b493b8-9137-4003-ac92-6e1757f7be4b/predictions";
 
@@ -46,7 +44,7 @@ public final class AutoAIConnector {
         StringBuffer jsonStringScoring = new StringBuffer();
         try {
             // Scoring request
-            IAMToken token = getAccessToken();
+            IAMToken token = TokenConnector.getInstance().getAccessToken(IAM_API_KEY);
             URL scoringUrl = new URL(predictionURL);
             scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
             scoringConnection.setDoInput(true);
@@ -88,30 +86,5 @@ public final class AutoAIConnector {
             }
         }
         return response;
-    }
-
-    public IAMToken getAccessToken() throws IOException, JSONException {
-        HttpURLConnection scoringConnection = null;
-        BufferedReader scoringBuffer = null;
-        StringBuffer jsonStringScoring = new StringBuffer();
-        URL scoringUrl = new URL(IAMTOKENURL);
-        scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
-        scoringConnection.setDoInput(true);
-        scoringConnection.setDoOutput(true);
-        scoringConnection.setRequestMethod("POST");
-        scoringConnection.setRequestProperty("Accept", "application/json");
-        scoringConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
-        String payload = "grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + IAM_API_KEY;
-        writer.write(payload);
-        writer.close();
-
-        scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
-        String lineScoring;
-        while ((lineScoring = scoringBuffer.readLine()) != null) {
-            jsonStringScoring.append(lineScoring);
-        }
-        IAMToken token = mapper.readValue(jsonStringScoring.toString(), IAMToken.class);
-        return token;
     }
 }

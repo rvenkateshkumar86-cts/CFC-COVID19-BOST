@@ -20,9 +20,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.IoTPagerFragment;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.LogPagerFragment;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.LoginPagerFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,11 +38,11 @@ public class MessageConductor {
     private final static String TAG = MessageConductor.class.getName();
     private static MessageConductor instance;
     private final Context context;
-    private final IoTStarterApplication app;
+    private final BOSTStarterApplication app;
 
     private MessageConductor(Context context) {
         this.context = context;
-        app = (IoTStarterApplication) context.getApplicationContext();
+        app = (BOSTStarterApplication) context.getApplicationContext();
     }
 
     public static MessageConductor getInstance(Context context) {
@@ -84,19 +84,6 @@ public class MessageConductor {
             actionIntent.putExtra(Constants.INTENT_DATA, Constants.COLOR_EVENT);
             context.sendBroadcast(actionIntent);
 
-        } else if (topic.contains(Constants.LIGHT_EVENT)) {
-            Log.d(TAG, "Light Event");
-            // Set light on or off, or toggle light otherwise.
-            String light = d.optString("light");
-            Boolean newState;
-            if ("on".equals(light)) {
-                newState = true;
-            } else if ("off".equals(light)) {
-                newState = false;
-            } else {
-                newState = null;
-            }
-            app.handleLightMessage(newState);
         } else if (topic.contains(Constants.TEXT_EVENT)) {
             int unreadCount = app.getUnreadCount();
             String messageText = d.getString("text");
@@ -121,9 +108,7 @@ public class MessageConductor {
             // Skip sending intent if active tab is LOG
             // TODO: 'current activity' code needs fixing.
             Intent unreadIntent;
-            if (runningActivity.equals(LogPagerFragment.class.getName())) {
-                unreadIntent = new Intent(Constants.APP_ID + Constants.INTENT_LOG);
-            } else if (runningActivity.equals(LoginPagerFragment.class.getName())) {
+            if (runningActivity.equals(LoginPagerFragment.class.getName())) {
                 unreadIntent = new Intent(Constants.APP_ID + Constants.INTENT_LOGIN);
             } else if (runningActivity.equals(IoTPagerFragment.class.getName())) {
                 unreadIntent = new Intent(Constants.APP_ID + Constants.INTENT_IOT);
@@ -161,9 +146,7 @@ public class MessageConductor {
                 // Send alert intent with message payload to current active activity / fragment.
                 // TODO: update for current activity changes.
                 Intent alertIntent;
-                if (runningActivity.equals(LogPagerFragment.class.getName())) {
-                    alertIntent = new Intent(Constants.APP_ID + Constants.INTENT_LOG);
-                } else if (runningActivity.equals(LoginPagerFragment.class.getName())) {
+                if (runningActivity.equals(LoginPagerFragment.class.getName())) {
                     alertIntent = new Intent(Constants.APP_ID + Constants.INTENT_LOGIN);
                 } else if (runningActivity.equals(IoTPagerFragment.class.getName())) {
                     alertIntent = new Intent(Constants.APP_ID + Constants.INTENT_IOT);

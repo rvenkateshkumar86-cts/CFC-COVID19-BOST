@@ -12,7 +12,7 @@
  *
  * Contributors: Allan Marube, Mike Robertson
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.views;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MessageFactory;
@@ -42,7 +42,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
  */
 public class DrawingView extends View {
     private final static String TAG = DrawingView.class.getName();
-    private IoTStarterApplication app;
+    private BOSTStarterApplication app;
     private Context context;
     private Path drawPath; //user drawPath
 
@@ -95,7 +95,7 @@ public class DrawingView extends View {
     public void setContext(Context context) {
         Log.d(TAG, "setContext()");
         this.context = context;
-        app = (IoTStarterApplication) context.getApplicationContext();
+        app = (BOSTStarterApplication) context.getApplicationContext();
     }
 
     /**
@@ -207,7 +207,7 @@ public class DrawingView extends View {
         previousX = x;
         previousY = y;
 
-        IoTStarterApplication app = (IoTStarterApplication) context.getApplicationContext();
+        BOSTStarterApplication app = (BOSTStarterApplication) context.getApplicationContext();
 
         String messageData = MessageFactory.getTouchMessage(relativeX, relativeY, relativeDX, relativeDY, ended);
 

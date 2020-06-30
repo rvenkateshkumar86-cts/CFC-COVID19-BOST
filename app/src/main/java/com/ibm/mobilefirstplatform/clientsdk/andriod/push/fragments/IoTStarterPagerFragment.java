@@ -21,8 +21,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainPagerActivity;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.CheckTemperatureActivity;
+
 
 /**
  * This class provides common properties and functions for fragment subclasses used in the application.
@@ -30,7 +31,7 @@ import com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainPagerAc
 public class IoTStarterPagerFragment extends Fragment {
     private final static String TAG = IoTStarterPagerFragment.class.getName();
     Context context;
-    IoTStarterApplication app;
+    BOSTStarterApplication app;
     BroadcastReceiver broadcastReceiver;
 
     @Override
@@ -58,7 +59,7 @@ public class IoTStarterPagerFragment extends Fragment {
      */
     void openIoT() {
         Log.d(TAG, ".openIoT() entered");
-        ((MainPagerActivity) getActivity()).setCurrentItem(1);
+        ((CheckTemperatureActivity) getActivity()).setCurrentItem(1);
     }
 
 

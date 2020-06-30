@@ -32,8 +32,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
+
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.views.DrawingView;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MessageFactory;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTActionListener;
@@ -71,7 +73,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
         Log.d(TAG, ".onResume() entered");
 
         super.onResume();
-        app = (IoTStarterApplication) getActivity().getApplication();
+        app = (BOSTStarterApplication) getActivity().getApplication();
         app.setCurrentRunningActivity(TAG);
 
         if (broadcastReceiver == null) {
@@ -127,7 +129,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
             }
         });
 
-        com.ibm.iot.android.iotstarter.views.DrawingView drawingView = (com.ibm.iot.android.iotstarter.views.DrawingView) getActivity().findViewById(R.id.drawing);
+        DrawingView drawingView = (DrawingView) getActivity().findViewById(R.id.drawing);
         drawingView.setContext(context);
     }
 
@@ -234,7 +236,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
             processAccelEvent();
         } else if (data.equals(Constants.COLOR_EVENT)) {
             Log.d(TAG, "Updating background color");
-            com.ibm.iot.android.iotstarter.views.DrawingView drawingView = (com.ibm.iot.android.iotstarter.views.DrawingView) getActivity().findViewById(R.id.drawing);
+            DrawingView drawingView = (DrawingView) getActivity().findViewById(R.id.drawing);
             drawingView.setBackgroundColor(app.getColor());
         } else if (data.equals(Constants.ALERT_EVENT)) {
             String message = intent.getStringExtra(Constants.INTENT_DATA_MESSAGE);

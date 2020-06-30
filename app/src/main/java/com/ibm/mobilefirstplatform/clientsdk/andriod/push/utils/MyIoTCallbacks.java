@@ -18,7 +18,8 @@ package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTCallbacks;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -30,11 +31,11 @@ import org.json.JSONException;
 public class MyIoTCallbacks implements IoTCallbacks {
     private final static String TAG = MyIoTCallbacks.class.getName();
     private final Context context;
-    private final IoTStarterApplication app;
+    private final BOSTStarterApplication app;
     private static MyIoTCallbacks myIoTCallbacks;
 
     public MyIoTCallbacks(Context context) {
-        this.app = (IoTStarterApplication) context;
+        this.app = (BOSTStarterApplication) context;
         this.context = context;
     }
 

@@ -18,7 +18,8 @@ package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTActionListener;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -35,13 +36,13 @@ public class MyIoTActionListener implements IoTActionListener {
 
     private final Context context;
     private final Constants.ActionStateStatus action;
-    private final IoTStarterApplication app;
+    private final BOSTStarterApplication app;
 
 
     public MyIoTActionListener(Context context, Constants.ActionStateStatus action) {
         this.context = context;
         this.action = action;
-        app = (IoTStarterApplication) context.getApplicationContext();
+        app = (BOSTStarterApplication) context.getApplicationContext();
     }
 
     /**

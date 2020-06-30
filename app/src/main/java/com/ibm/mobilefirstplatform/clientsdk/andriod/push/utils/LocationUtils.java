@@ -24,7 +24,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 
 /**
  * LocationUtils enables and disables location services so that the application can publish latitude
@@ -34,14 +35,14 @@ public class LocationUtils implements LocationListener {
     private final static String TAG = LocationUtils.class.getName();
 
     private static LocationUtils instance;
-    private final IoTStarterApplication app;
+    private final BOSTStarterApplication app;
     private final LocationManager locationManager;
     private final Criteria criteria;
 
     private LocationUtils(Context context) {
         this.locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         this.criteria = getCriteria();
-        this.app = (IoTStarterApplication) context.getApplicationContext();
+        this.app = (BOSTStarterApplication) context.getApplicationContext();
     }
 
     public static LocationUtils getInstance(Context context) {
