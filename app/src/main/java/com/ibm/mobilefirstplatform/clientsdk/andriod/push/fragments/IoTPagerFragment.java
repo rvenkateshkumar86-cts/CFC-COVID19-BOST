@@ -14,10 +14,14 @@
  *    Mike Robertson - initial contribution
  *    Aldo Eisma - fix occasional stale reference to drawingView
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.fragments;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments;
 
 import android.app.AlertDialog;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -27,13 +31,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.R;
-import com.ibm.iot.android.iotstarter.iot.IoTClient;
-import com.ibm.iot.android.iotstarter.utils.Constants;
-import com.ibm.iot.android.iotstarter.utils.MessageFactory;
-import com.ibm.iot.android.iotstarter.utils.MyIoTActionListener;
-import com.ibm.iot.android.iotstarter.views.DrawingView;
+
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MessageFactory;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTActionListener;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
@@ -122,7 +127,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
             }
         });
 
-        DrawingView drawingView = (DrawingView) getActivity().findViewById(R.id.drawing);
+        com.ibm.iot.android.iotstarter.views.DrawingView drawingView = (com.ibm.iot.android.iotstarter.views.DrawingView) getActivity().findViewById(R.id.drawing);
         drawingView.setContext(context);
     }
 
@@ -229,7 +234,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
             processAccelEvent();
         } else if (data.equals(Constants.COLOR_EVENT)) {
             Log.d(TAG, "Updating background color");
-            DrawingView drawingView = (DrawingView) getActivity().findViewById(R.id.drawing);
+            com.ibm.iot.android.iotstarter.views.DrawingView drawingView = (com.ibm.iot.android.iotstarter.views.DrawingView) getActivity().findViewById(R.id.drawing);
             drawingView.setBackgroundColor(app.getColor());
         } else if (data.equals(Constants.ALERT_EVENT)) {
             String message = intent.getStringExtra(Constants.INTENT_DATA_MESSAGE);
@@ -250,7 +255,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
     private void processPublishIntent() {
         Log.v(TAG, ".processPublishIntent() entered");
         String publishedString = this.getString(R.string.messages_published);
-        publishedString = publishedString.replace("0",Integer.toString(app.getPublishCount()));
+        publishedString = publishedString.replace("0", Integer.toString(app.getPublishCount()));
         ((TextView) getActivity().findViewById(R.id.messagesPublishedView)).setText(publishedString);
     }
 
@@ -261,7 +266,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
     private void processReceiveIntent() {
         Log.v(TAG, ".processReceiveIntent() entered");
         String receivedString = this.getString(R.string.messages_received);
-        receivedString = receivedString.replace("0",Integer.toString(app.getReceiveCount()));
+        receivedString = receivedString.replace("0", Integer.toString(app.getReceiveCount()));
         ((TextView) getActivity().findViewById(R.id.messagesReceivedView)).setText(receivedString);
     }
 

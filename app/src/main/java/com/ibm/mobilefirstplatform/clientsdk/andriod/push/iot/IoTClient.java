@@ -13,14 +13,22 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.iot;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot;
 
 import android.content.Context;
 import android.util.Log;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
 import javax.net.SocketFactory;
+
 
 /**
  * IoTClient provides a wrapper around the Eclipse Paho Project Android MQTT Service.

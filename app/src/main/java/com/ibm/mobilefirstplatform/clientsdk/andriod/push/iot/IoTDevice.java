@@ -13,7 +13,7 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.iot;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot;
 
 import java.util.HashSet;
 import java.util.Set;

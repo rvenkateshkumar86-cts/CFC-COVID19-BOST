@@ -13,21 +13,23 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.fragments;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments;
 
 import android.app.AlertDialog;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
-import android.view.*;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.R;
-import com.ibm.iot.android.iotstarter.activities.TutorialPagerActivity;
-import com.ibm.iot.android.iotstarter.utils.Constants;
+
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
+
+
 
 /**
  * The Log fragment displays text command messages that have been received by the application.
@@ -53,51 +55,6 @@ public class LogPagerFragment extends ListFragment {
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.log, container, false);
-    }
-
-    /**
-     * Called when the fragment is resumed.
-     */
-    @Override
-    public void onResume() {
-        Log.d(TAG, ".onResume() entered");
-
-        super.onResume();
-        Context context = getActivity().getApplicationContext();
-
-        ListView listView = (ListView) getActivity().findViewById(android.R.id.list);
-
-        app = (IoTStarterApplication) getActivity().getApplication();
-        app.setCurrentRunningActivity(TAG);
-        app.setUnreadCount(0);
-
-        listAdapter = new ArrayAdapter<String>(context, R.layout.list_item, app.getMessageLog());
-        listView.setAdapter(listAdapter);
-
-        if (broadcastReceiver == null) {
-            Log.d(TAG, ".onResume() - Registering LogBroadcastReceiver");
-            broadcastReceiver = new BroadcastReceiver() {
-
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    Log.d(TAG, ".onReceive() - Received intent for logBroadcastReceiver");
-                    processIntent(intent);
-                }
-            };
-        }
-
-        getActivity().getApplicationContext().registerReceiver(broadcastReceiver,
-                new IntentFilter(Constants.APP_ID + Constants.INTENT_LOG));
-
-        // Set color to black in case it somehow was leftover from iot fragment?
-        getView().setBackgroundColor(getResources().getColor(R.color.background_main));
-
-        // initialise
-        initializeLogActivity();
-    }
 
     /**
      * Called when the fragment is destroyed.
@@ -164,65 +121,8 @@ public class LogPagerFragment extends ListFragment {
         }*/
     }
 
-    void openTutorial() {
-        Log.d(TAG, ".openTutorial() entered");
-        Intent tutorialIntent = new Intent(getActivity().getApplicationContext(), TutorialPagerActivity.class);
-        startActivity(tutorialIntent);
-    }
 
-    /*private void openWeb() {
-        Log.d(TAG, ".openWeb() entered");
-        Intent webIntent = new Intent(getActivity().getApplicationContext(), WebActivity.class);
-        startActivity(webIntent);
-    }*/
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d(TAG, ".onCreateOptions() entered");
-        getActivity().getMenuInflater().inflate(R.menu.menu, menu);
 
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
-    /**
-     * Process the selected iot_menu item.
-     * @param item The selected iot_menu item.
-     * @return true in all cases.
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(TAG, ".onOptionsItemSelected() entered");
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.action_profiles:
-                /*if (!ProfilesActivity.class.getName().equals(app.getCurrentRunningActivity())) {
-                    openProfiles();
-                }*/
-                return true;
-            case R.id.action_tutorial:
-                openTutorial();
-                return true;
-            case R.id.action_web:
-                /*openWeb();*/
-                return true;
-            case R.id.action_accel:
-                app.toggleAccel();
-                return true;
-            case R.id.clear:
-                app.setUnreadCount(0);
-                app.getMessageLog().clear();
-                listAdapter.notifyDataSetInvalidated();
-                return true;
-            case R.id.action_clear_profiles:
-                app.clearProfiles();
-                return true;
-            default:
-                if (item.getTitle().equals(getResources().getString(R.string.app_name))) {
-                    getActivity().openOptionsMenu();
-                    return true;
-                } else {
-                    return super.onOptionsItemSelected(item);
-                }
-        }
-    }
 }

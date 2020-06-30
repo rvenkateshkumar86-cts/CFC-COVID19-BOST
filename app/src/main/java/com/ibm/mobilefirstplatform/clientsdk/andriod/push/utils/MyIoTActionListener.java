@@ -13,14 +13,14 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.utils;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.iot.IoTActionListener;
-import com.ibm.iot.android.iotstarter.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTActionListener;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 

@@ -22,7 +22,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context="com.ibm.iot.android.iotstarter.fragments.IoTPagerFragment"
+              tools:context="com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.IoTPagerFragment"
         >
     <com.ibm.iot.android.iotstarter.views.DrawingView
         android:layout_height="match_parent"

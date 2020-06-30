@@ -15,7 +15,7 @@
  *    Aldo Eisma - location update logic fixed and updated for Android M
  *    Aldo Eisma - add bearing and speed to acceleration message
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.utils;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -24,7 +24,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
 
 /**
  * LocationUtils enables and disables location services so that the application can publish latitude

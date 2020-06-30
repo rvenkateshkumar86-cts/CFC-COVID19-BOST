@@ -16,21 +16,24 @@ package com.ibm.iot.android.iotstarter.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.CornerPathEffect;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.R;
-import com.ibm.iot.android.iotstarter.iot.IoTClient;
-import com.ibm.iot.android.iotstarter.utils.Constants;
-import com.ibm.iot.android.iotstarter.utils.MessageFactory;
-import com.ibm.iot.android.iotstarter.utils.MyIoTActionListener;
-import org.eclipse.paho.client.mqttv3.MqttException;
 
-import java.util.zip.Inflater;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MessageFactory;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTActionListener;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
  * View that contains canvas to draw upon, handles all touch Events for

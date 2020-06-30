@@ -14,12 +14,11 @@
  *    Mike Robertson - initial contribution
  *    Aldo Eisma - add bearing and speed to acceleration message
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.utils;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Build messages to be published by the application.

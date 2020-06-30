@@ -13,9 +13,8 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.activities;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,13 +25,12 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.R;
-import com.ibm.iot.android.iotstarter.fragments.IoTPagerFragment;
-import com.ibm.iot.android.iotstarter.fragments.LogPagerFragment;
-import com.ibm.iot.android.iotstarter.fragments.LoginPagerFragment;
-import com.ibm.iot.android.iotstarter.utils.Constants;
-import com.ibm.iot.android.iotstarter.views.DrawingView;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.IoTPagerFragment;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.LogPagerFragment;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.LoginPagerFragment;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
 /**
  * TutorialActivity provides a ViewPager with a few Fragments that provide
@@ -66,9 +64,9 @@ public class MainPagerActivity extends FragmentActivity {
 
         IoTStarterApplication app = (IoTStarterApplication) getApplication();
         if (!app.isTutorialShown()) {
-            Intent tutorialIntent = new Intent(getApplicationContext(), TutorialPagerActivity.class);
+            /*Intent tutorialIntent = new Intent(getApplicationContext(), TutorialPagerActivity.class);
             startActivity(tutorialIntent);
-            app.setTutorialShown(true);
+            app.setTutorialShown(true);*/
         }
     }
 

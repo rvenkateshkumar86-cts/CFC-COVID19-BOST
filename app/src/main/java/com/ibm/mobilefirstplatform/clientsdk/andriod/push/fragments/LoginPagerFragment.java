@@ -13,10 +13,14 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.fragments;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments;
 
 import android.app.AlertDialog;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -27,23 +31,26 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.google.android.gms.security.ProviderInstaller;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.R;
-import com.ibm.iot.android.iotstarter.iot.IoTClient;
-import com.ibm.iot.android.iotstarter.utils.Constants;
-import com.ibm.iot.android.iotstarter.utils.DeviceSensor;
-import com.ibm.iot.android.iotstarter.utils.LocationUtils;
-import com.ibm.iot.android.iotstarter.utils.MyIoTActionListener;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.DeviceSensor;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.LocationUtils;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTActionListener;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
+
+import java.security.KeyStore;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
-import java.security.KeyStore;
-import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * The login fragment of the IoTStarter application. Provides functionality for

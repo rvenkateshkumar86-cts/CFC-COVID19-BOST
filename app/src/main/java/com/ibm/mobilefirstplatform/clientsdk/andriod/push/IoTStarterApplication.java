@@ -14,7 +14,7 @@
  *    Mike Robertson - initial contribution
  *    Aldo Eisma - location update and light control fixed, updated for Android M
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push;
 
 import android.annotation.TargetApi;
 import android.app.Application;
@@ -31,11 +31,11 @@ import android.location.Location;
 import android.os.Build;
 import android.util.Log;
 
-import com.ibm.iot.android.iotstarter.iot.IoTDevice;
-import com.ibm.iot.android.iotstarter.utils.Constants;
-import com.ibm.iot.android.iotstarter.utils.DeviceSensor;
-import com.ibm.iot.android.iotstarter.utils.LocationUtils;
-import com.ibm.iot.android.iotstarter.utils.MyIoTCallbacks;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTDevice;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.DeviceSensor;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.LocationUtils;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTCallbacks;
 
 import java.io.IOException;
 import java.util.*;

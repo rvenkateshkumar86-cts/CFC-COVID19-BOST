@@ -13,7 +13,7 @@
  * Contributors:
  *    Mike Robertson - initial contribution
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.utils;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 
 /**
  * Constants used by the IoT Starter application

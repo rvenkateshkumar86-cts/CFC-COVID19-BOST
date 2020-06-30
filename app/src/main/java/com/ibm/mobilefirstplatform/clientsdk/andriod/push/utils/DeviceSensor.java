@@ -14,7 +14,7 @@
  *    Mike Robertson - initial contribution
  *    Aldo Eisma - add bearing and speed to acceleration message
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.utils;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +25,9 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.Timer;
@@ -175,7 +176,7 @@ public class DeviceSensor implements SensorEventListener {
                 MyIoTActionListener listener = new MyIoTActionListener(context, Constants.ActionStateStatus.PUBLISH);
                 IoTClient iotClient = IoTClient.getInstance(context);
                 if (app.getConnectionType() == Constants.ConnectionType.QUICKSTART) {
-                    iotClient.publishEvent(Constants.STATUS_EVENT, "json", messageData, 0, false, listener);
+                    iotClient.publishEvent(Constants.STATUS_EVENT, "json", messageData, 0, false,listener);
                 } else {
                     iotClient.publishEvent(Constants.ACCEL_EVENT, "json", messageData, 0, false, listener);
                 }

@@ -14,16 +14,16 @@
  *    Mike Robertson - initial contribution
  *    Aldo Eisma - light can now be controlled with toggle, on and off
  *******************************************************************************/
-package com.ibm.iot.android.iotstarter.utils;
+package com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
-import com.ibm.iot.android.iotstarter.IoTStarterApplication;
-import com.ibm.iot.android.iotstarter.fragments.IoTPagerFragment;
-import com.ibm.iot.android.iotstarter.fragments.LogPagerFragment;
-import com.ibm.iot.android.iotstarter.fragments.LoginPagerFragment;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.IoTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.IoTPagerFragment;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.LogPagerFragment;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments.LoginPagerFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
