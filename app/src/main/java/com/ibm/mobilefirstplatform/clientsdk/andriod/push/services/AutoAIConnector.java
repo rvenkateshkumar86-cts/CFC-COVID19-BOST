@@ -19,11 +19,11 @@ public final class AutoAIConnector {
 
     private static final String  IAMTOKENURL = "https://iam.cloud.ibm.com/identity/token";
 
-    private static final String IAM_API_KEY = "xsXOUE2hmyU3Iqun9QF53e2b_s4jV_Ylgf-76s973dGb";
+    private static final String IAM_API_KEY = "5JaxBbFaRLYTO_F_bVy3RJlHwNnvLl8zELiFwScx-89r";
 
-    private static final String ml_instance_id = "9f3dac87-25d7-4cb7-aeee-11e9265d345c";
+    private static final String ml_instance_id = "dc37a6a5-8a8f-4c99-9c18-f403a58dd069";
 
-    private static final String predictionURL = "https://us-south.ml.cloud.ibm.com/v4/deployments/bffea2cc-1e84-4c3f-b313-3f4e7b86eb26/predictions";
+    private static final String predictionURL = "https://us-south.ml.cloud.ibm.com/v4/deployments/34b493b8-9137-4003-ac92-6e1757f7be4b/predictions";
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -59,10 +59,11 @@ public final class AutoAIConnector {
             OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
 
             // NOTE: manually define and pass the array(s) of values to be scored in the next line
-            String payload = "{\"input_data\":[{\"fields\":[\"age\",\"job\",\"marital\",\"education\",\"default\",\"balance\",\"housing\",\"loan\",\"contact\",\"day\",\"month\",\"duration\",\"campaign\",\"pdays\",\"previous\",\"poutcome\"],\"values\":[[" + patient.getAge() + ",\"" + patient.getJob() + "\",\"" + patient.getMarital() + "\"," + patient.getEducation() + "," + "null,"+ patient.getBalance() +"," + patient.getHousing() + "," + patient.getLoan() + "," + patient.getContact() + "," + patient.getDay() + "," + patient.getMonth() + "," + patient.getDuration() + "," + patient.getCampaign() + "," + patient.getPdays() + "," + patient.getPrevious() + "," + patient.getPoutcome() + "]]}]}";
+           String payload = "{\"input_data\":[{\"fields\":[\"Gender\",\"Age\",\"Temperature(In Celsius)\",\"Respiratory_Rate(breath/min)\",\"Pulse Rate(beats/min)\",\"Oxygen_Saturation_Rate(mmHg)\"],\"values\":[[\""+patient.getGender()+"\","+ patient.getAge()+ "," + patient.getTemp() + "," + patient.getRespRate()+ "," + patient.getPulseRate() +"," + patient.getOxySaturation() + "]]}]}";
+          
+
             writer.write(payload);
             writer.close();
-            String pay = "\"" + patient.getCampaign() + "\"";
 
             scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
             String lineScoring;
@@ -113,5 +114,4 @@ public final class AutoAIConnector {
         IAMToken token = mapper.readValue(jsonStringScoring.toString(), IAMToken.class);
         return token;
     }
-
 }
