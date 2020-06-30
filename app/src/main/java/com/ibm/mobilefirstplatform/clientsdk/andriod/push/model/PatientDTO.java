@@ -1,154 +1,67 @@
 package com.ibm.mobilefirstplatform.clientsdk.andriod.push.model;
 
 public class PatientDTO {
+    private String gender;
+    private int age;
+    private int temp;
+    private int respRate;
+    private int pulseRate;
+    private int oxySaturation;
 
-    private Integer age;
+    public PatientDTO(String gender, int age, int temp, int respRate, int pulseRate, int oxySaturation) {
+        this.gender = gender;
+        this.age = age;
+        this.temp = temp;
+        this.respRate = respRate;
+        this.pulseRate = pulseRate;
+        this.oxySaturation = oxySaturation;
+    }
 
-    private String job;
+    public String getGender() {
+        return gender;
+    }
 
-    private String marital;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-    private String education;
-
-    private Double balance;
-
-    private String housing;
-
-    private String loan;
-
-    private String contact;
-
-    private Integer day;
-
-    private Integer month;
-
-    private Integer duration;
-
-    private String campaign;
-
-    private Integer pdays;
-
-    private String previous;
-
-    private String poutcome;
-
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public String getJob() {
-        return job;
+    public int getTemp() {
+        return temp;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setTemp(int temp) {
+        this.temp = temp;
     }
 
-    public String getMarital() {
-        return marital;
+    public int getRespRate() {
+        return respRate;
     }
 
-    public void setMarital(String marital) {
-        this.marital = marital;
+    public void setRespRate(int respRate) {
+        this.respRate = respRate;
     }
 
-    public String getEducation() {
-        return education;
+    public int getPulseRate() {
+        return pulseRate;
     }
 
-    public void setEducation(String education) {
-        this.education = education;
+    public void setPulseRate(int pulseRate) {
+        this.pulseRate = pulseRate;
     }
 
-    public Double getBalance() {
-        return balance;
+    public int getOxySaturation() {
+        return oxySaturation;
     }
 
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    public String getHousing() {
-        return housing;
-    }
-
-    public void setHousing(String housing) {
-        this.housing = housing;
-    }
-
-    public String getLoan() {
-        return loan;
-    }
-
-    public void setLoan(String loan) {
-        this.loan = loan;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public Integer getDay() {
-        return day;
-    }
-
-    public void setDay(Integer day) {
-        this.day = day;
-    }
-
-    public Integer getMonth() {
-        return month;
-    }
-
-    public void setMonth(Integer month) {
-        this.month = month;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public String getCampaign() {
-        return campaign;
-    }
-
-    public void setCampaign(String campaign) {
-        this.campaign = campaign;
-    }
-
-    public Integer getPdays() {
-        return pdays;
-    }
-
-    public void setPdays(Integer pdays) {
-        this.pdays = pdays;
-    }
-
-    public String getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(String previous) {
-        this.previous = previous;
-    }
-
-    public String getPoutcome() {
-        return poutcome;
-    }
-
-    public void setPoutcome(String poutcome) {
-        this.poutcome = poutcome;
+    public void setOxySaturation(int oxySaturation) {
+        this.oxySaturation = oxySaturation;
     }
 }
