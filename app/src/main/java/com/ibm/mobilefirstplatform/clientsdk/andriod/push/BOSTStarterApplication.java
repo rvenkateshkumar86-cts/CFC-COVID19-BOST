@@ -49,7 +49,7 @@ public class BOSTStarterApplication extends Application {
     private int color = Color.argb(1, 58, 74, 83);
     private boolean isCameraOn = false;
     private float[] accelData;
-    private float accelDataTemp;
+    private String accelDataTemp;
     private boolean accelEnabled = true;
     private String andriodDeviceId = "";
 
@@ -360,9 +360,9 @@ public class BOSTStarterApplication extends Application {
         this.currentLocation = currentLocation;
     }
 
-    public float getAccelDataTemp() { return accelDataTemp; }
+    public String getAccelDataTemp() { return accelDataTemp; }
 
-    public void setAccelDataTemp(float accelDataTemp) {
+    public void setAccelDataTemp(String accelDataTemp) {
         this.accelDataTemp = accelDataTemp;
     }
 

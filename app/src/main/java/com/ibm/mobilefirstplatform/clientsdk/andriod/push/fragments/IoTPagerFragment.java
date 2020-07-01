@@ -277,7 +277,7 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
      */
     private void processAccelEvent() {
         Log.v(TAG, ".processAccelEvent()");
-        float accelDataTemp = app.getAccelDataTemp();
-        ((TextView) getActivity().findViewById(R.id.accelTemp)).setText("temp: " + accelDataTemp);
+        String accelDataTemp = app.getAccelDataTemp();
+        ((TextView) getActivity().findViewById(R.id.accelTemp)).setText("temp: " + accelDataTemp + " C");
     }
 }

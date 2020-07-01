@@ -109,7 +109,7 @@ public class DeviceSensor implements SensorEventListener {
     private float[] O = new float[3]; // orientation azimuth, pitch, roll
     private float yaw;
     private float[] T;
-    private float  temperature;
+    private String  temperature;
 
     /**
      * Callback for processing data from the registered sensors. Accelerometer and magnetometer
@@ -130,8 +130,8 @@ public class DeviceSensor implements SensorEventListener {
         } */
         if (Sensor.TYPE_AMBIENT_TEMPERATURE > 0) {
             Log.v(TAG, "temperature -- " + Sensor.TYPE_AMBIENT_TEMPERATURE);
-            T = sensorEvent.values;
-            temperature = Sensor.TYPE_AMBIENT_TEMPERATURE;
+            float ambient_temperature = sensorEvent.values[0];
+            temperature = String.valueOf(ambient_temperature);
         }
     }
 
