@@ -16,9 +16,13 @@ import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.DeviceSensor;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.LocationUtils;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTCallbacks;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 public class BOSTStarterApplication extends Application {
@@ -374,6 +378,16 @@ public class BOSTStarterApplication extends Application {
             //editor.apply();
             editor.commit();
         }
+    }
+
+    public String getRandomAmbientTemperature()
+    {
+        Random random = new Random();
+        int minimum = 30;
+        int maximum = 38;
+        int range = maximum - minimum + 1;
+        int randomNum =  random.nextInt(range) + minimum;
+        return String.valueOf(randomNum);
     }
 
     public List<IoTDevice> getProfiles() {

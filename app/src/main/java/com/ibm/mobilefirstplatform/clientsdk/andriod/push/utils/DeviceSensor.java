@@ -22,6 +22,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,19 +45,16 @@ public class DeviceSensor implements SensorEventListener {
     private static DeviceSensor instance;
     private final BOSTStarterApplication app;
     private final SensorManager sensorManager;
-    private final Sensor accelerometer ;
-    private final Sensor temperatureSensor;
+    private Sensor temperatureSensor = null;
     private final Context context;
     private Timer timer;
-    private long tripId;
     private boolean isEnabled = false;
 
     private DeviceSensor(Context context) {
         this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        temperatureSensor =  sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         app = (BOSTStarterApplication) context.getApplicationContext();
+        temperatureSensor= sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
     }
 
     /**
@@ -76,15 +75,13 @@ public class DeviceSensor implements SensorEventListener {
     public void enableSensor() {
         Log.i(TAG, ".enableSensor() entered");
         if (!isEnabled) {
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             if(temperatureSensor != null) {
                 sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
             }else {
-                Toast.makeText(context  ,"No ambient temperature Sensor!",Toast.LENGTH_SHORT);
+                Toast.makeText(context,"Sensor temperature not supported for your device", Toast.LENGTH_LONG).show();
             }
-            tripId = System.currentTimeMillis()/1000;
             timer = new Timer();
-            timer.scheduleAtFixedRate(new SendTimerTask(), 1000, 1000);
+            timer.scheduleAtFixedRate(new SendTimerTask(), 1000, 1000 * 5);
             isEnabled = true;
         }
     }
@@ -101,14 +98,6 @@ public class DeviceSensor implements SensorEventListener {
         }
     }
 
-    // Values used for accelerometer, magnetometer, orientation sensor data
-    private float[] G = new float[3]; // gravity x,y,z
-    /*private float[] M = new float[3]; // geomagnetic field x,y,z*/
-    private final float[] R = new float[9]; // rotation matrix
-    private final float[] I = new float[9]; // inclination matrix
-    private float[] O = new float[3]; // orientation azimuth, pitch, roll
-    private float yaw;
-    private float[] T;
     private String  temperature;
 
     /**
@@ -120,14 +109,6 @@ public class DeviceSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Log.v(TAG, "onSensorChanged() entered");
-        /*if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            Log.v(TAG, "Accelerometer -- x: " + sensorEvent.values[0] + " y: "
-                    + sensorEvent.values[1] + " z: " + sensorEvent.values[2]);
-            Log.v(TAG, "temperature -- " + Sensor.TYPE_AMBIENT_TEMPERATURE);
-            G = sensorEvent.values;
-            *//*temperature = Sensor.TYPE_AMBIENT_TEMPERATURE;*//*
-
-        } */
         if (Sensor.TYPE_AMBIENT_TEMPERATURE > 0) {
             Log.v(TAG, "temperature -- " + Sensor.TYPE_AMBIENT_TEMPERATURE);
             float ambient_temperature = sensorEvent.values[0];
@@ -157,18 +138,10 @@ public class DeviceSensor implements SensorEventListener {
         @Override
         public void run() {
             Log.v(TAG, "SendTimerTask.run() entered");
-
-            double lon = 0.0;
-            double lat = 0.0;
-            float heading = 0.0f;
-            float speed = 0.0f;
-            if (app.getCurrentLocation() != null) {
-                lon = app.getCurrentLocation().getLongitude();
-                lat = app.getCurrentLocation().getLatitude();
-                heading = app.getCurrentLocation().getBearing();
-                speed = app.getCurrentLocation().getSpeed() * 3.6f;
+            if (temperatureSensor == null) {
+               temperature = app.getRandomAmbientTemperature();
             }
-            String messageData = MessageFactory.getAccelMessage(G,temperature,T, O, yaw, lon, lat, heading, speed, tripId);
+            String messageData = MessageFactory.getAccelMessage(temperature);
             /*String messageData = MessageFactory.getAccelMessage(temperature);*/
 
             try {
@@ -193,8 +166,6 @@ public class DeviceSensor implements SensorEventListener {
             } catch (MqttException e) {
                 Log.d(TAG, ".run() received exception on publishEvent()");
             }
-
-            app.setAccelData(G);
             app.setAccelDataTemp(temperature);
 
             //String runningActivity = app.getCurrentRunningActivity();

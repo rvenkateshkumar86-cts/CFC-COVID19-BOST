@@ -68,7 +68,7 @@
 
     <!-- Begin IoT Fragment -->
     <string name="accel_info">Human Temperature</string>
-    <string name="accel_temp">temperature: 0.0</string>
+    <string name="accel_temp">0.0</string>
     <string name="messages_published">Messages Published: 0</string>
     <string name="messages_received">Messages Received: 0</string>
     <string name="device_id_iot">Device ID: </string>
