@@ -16,17 +16,20 @@ In addition, for doctors who are attending the COVID-19 patients on the hospital
 ## Solutions
 
 An Mobile app will be maintains based on IBM cloud services in order to support the following features in which two different way of services will be availed based on users and doctors.
-•	To monitor patient’s details (Blood Pressure, Pulse Rate, Respiratory Rate) and to decide which patients should get more attention. A video Feed also help to know the status of the patients. With the help of 3-4 volunteers, a single doctor can handle nearly 100 patients at a time.
-•	Temperature check is integrated with bar code like aadhar bar codes, in which temperature will be recorded at each time if a person is moving in and out in office or hotels etc.
+*	To monitor patient’s details (Blood Pressure, Pulse Rate, Respiratory Rate) and to decide which patients should get more attention. A video Feed also help to know the status of the patients. With the help of 3-4 volunteers, a single doctor can handle nearly 100 patients at a time.
+*	Temperature check is integrated with bar code like aadhar bar codes, in which temperature will be recorded at each time if a person is moving in and out in office or hotels etc.
 This data will recorded separately for each person. This temperature records will be helpful for 
 hospitals ,so that , at which time or place a person got temperature variation can be identified and they can easy track the covid -19 contact cases.
-•	Chatbot assistant to provide the following features. 
-o	To provide information about the number of covid patients in an area. This area should be as small as 3-5 km range. Based on this others can decide on whether to enter these areas or bypass their routes/shopping destinations/visits to these areas based on the statistics
-o	To provides facility for the most needy people especially those infected with covid and under treatment in residences and those people who cannot perform their daily needs like cooking, travel to hospital for testing due to infection etc. They should be able to register and put requests for food, medicine, vehicle/ambulance needs etc and their requests should be accepted with high priority
-o	To provide statistics of nearby hospitals with covid treatment facilities. It should provide data about provision for ventilators, doctors, free beds/rooms, ICU vacancies etc so that patients need not go in search of vacancies from one hospital to other and thus help in reducing queuing up in hospitals
-o	Also, helps self-quarantine person to engage with chatbot about daily activities, exercise, food etc based on age and weight categories.
-•	Notify users and doctors about frequent update on VIRUS related news feed based on location.
-•	Track user travels based on Geospatial analytics details.
+*	Chatbot assistant to provide the following features. 
+	  * To provide information about the number of covid patients in an area. This area should be as small as 3-5 km range. Based on this others can decide on whether to enter       these areas or bypass their routes/shopping destinations/visits to these areas based on the statistics
+    * To provides facility for the most needy people especially those infected with covid and under treatment in residences and those people who cannot perform their daily
+      needs like cooking, travel to hospital for testing due to infection etc. They should be able to register and put requests for food, medicine, vehicle/ambulance needs
+      etc and their requests should be accepted with high priority
+    * To provide statistics of nearby hospitals with covid treatment facilities. It should provide data about provision for ventilators, doctors, free beds/rooms, ICU
+      vacancies etc so that patients need not go in search of vacancies from one hospital to other and thus help in reducing queuing up in hospital
+    * Also, helps self-quarantine person to engage with chatbot about daily activities, exercise, food etc based on age and weight categories.
+* Notify users and doctors about frequent update on VIRUS related news feed based on location.
+* Track user travels based on Geospatial analytics details.
 
 
 ## Included components
@@ -46,6 +49,8 @@ o	Also, helps self-quarantine person to engage with chatbot about daily activiti
 * [IBM Push Notifications](https://cloud.ibm.com/catalog/services/push-notifications): Push Notifications service provides a unified push capability to send personalized and segmented real-time notifications to mobile and web applications using an intuitive UI, client SDK's and simple REST API's. It also monitor the push performance by generating graphs from your user data. 
 
 * [IBM Watson Assistance](https://cloud.ibm.com/docs/assistant?topic=assistant-getting-started): Watson Assistant is a conversation AI platform that helps you provide customers fast, straightforward and accurate answers to their questions, across any application, device or channel. By addressing common customer inquiries, Watson Assistant reduces the cost of customer interactions, helping your agents focus on complex use cases – not repetitive responses.
+
+* [IBM Watson IOT](https://www.ibm.com/cloud/watson-iot-platform): IBM Watson IoT Platform is a managed, cloud-hosted service designed to make it simple to derive value from your IoT devices. It reduce operational expense by understanding IoT devices to operate them more effectively and efficiently.
 
 
 ## Featured technologies
@@ -70,5 +75,9 @@ o	Also, helps self-quarantine person to engage with chatbot about daily activiti
 
 * [Google Map API](https://cloud.google.com/maps-platform/): Google Maps API lets you customize maps with your own content and imagery for display on web pages and mobile devices. 
 
+
+## Technical Diagram
+
+![TechnicalDiagram](https://user-images.githubusercontent.com/67637361/86258121-1487de00-bbd8-11ea-94d9-b0f298d2352e.jpg)
 
 
