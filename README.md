@@ -50,6 +50,8 @@ hospitals ,so that , at which time or place a person got temperature variation c
 
 * [IBM Watson Assistance](https://cloud.ibm.com/docs/assistant?topic=assistant-getting-started): Watson Assistant is a conversation AI platform that helps you provide customers fast, straightforward and accurate answers to their questions, across any application, device or channel. By addressing common customer inquiries, Watson Assistant reduces the cost of customer interactions, helping your agents focus on complex use cases – not repetitive responses.
 
+* [IBM Watson IOT](https://www.ibm.com/cloud/watson-iot-platform): IBM Watson IoT Platform is a managed, cloud-hosted service designed to make it simple to derive value from your IoT devices. It reduce operational expense by understanding IoT devices to operate them more effectively and efficiently.
+
 
 ## Featured technologies
 
@@ -76,6 +78,6 @@ hospitals ,so that , at which time or place a person got temperature variation c
 
 ## Technical Diagram
 
-![Technical_diagram_bost_app](https://user-images.githubusercontent.com/67637361/86242253-05963100-bbc2-11ea-89a2-a8b5694675fd.jpg)
+![TechnicalDiagram](https://user-images.githubusercontent.com/67637361/86258121-1487de00-bbd8-11ea-94d9-b0f298d2352e.jpg)
 
 
