@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.hardware.Camera;
 import android.location.Location;
 import android.os.Build;
+import android.provider.Settings.Secure;
 import android.util.Log;
 
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTDevice;
@@ -50,6 +51,7 @@ public class BOSTStarterApplication extends Application {
     private float[] accelData;
     private float accelDataTemp;
     private boolean accelEnabled = true;
+    private String andriodDeviceId = "";
 
     private DeviceSensor deviceSensor;
     private Location currentLocation;
@@ -68,7 +70,7 @@ public class BOSTStarterApplication extends Application {
         super.onCreate();
         settings = getSharedPreferences(Constants.SETTINGS, 0);
         myIoTCallbacks = MyIoTCallbacks.getInstance(this);
-
+        this.setAndriodDeviceId(Secure.getString(getContentResolver(), Secure.ANDROID_ID));
         loadProfiles();
     }
 
@@ -392,6 +394,13 @@ public class BOSTStarterApplication extends Application {
 
     public String getDeviceType() {
         return deviceType;
+    }
+
+    public String getAndriodDeviceId() {
+        return andriodDeviceId;
+    }
+    public void setAndriodDeviceId(String deviceId) {
+        this.andriodDeviceId = deviceId;
     }
 
     public boolean isUseSSL() {

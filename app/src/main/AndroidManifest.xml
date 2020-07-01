@@ -15,7 +15,8 @@
     <application
         android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_icon"
+        android:logo="@drawable/ic_logo"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar">
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.UserTrackerActivity" android:launchMode="standard" />
@@ -58,7 +59,9 @@
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" /> <!-- Mqtt Service -->
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Mqtt Service -->
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 

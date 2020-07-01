@@ -99,7 +99,7 @@ public class CheckTemperatureActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -109,8 +109,6 @@ public class CheckTemperatureActivity extends FragmentActivity {
                     return Constants.LOGIN_LABEL;
                 case 1:
                     return Constants.IOT_LABEL;
-                case 2:
-                    return Constants.LOG_LABEL;
                 default:
                     return null;
             }

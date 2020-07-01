@@ -125,7 +125,10 @@ public class LoginPagerFragment extends IoTStarterPagerFragment {
         Log.d(TAG, ".initializeLoginFragment() entered");
 
         context = getActivity().getApplicationContext();
-
+        app.setOrganization("2zgfv3");
+        // app.setDeviceId(app.getAndriodDeviceId());
+        app.setDeviceId("112233445566");
+        app.setAuthToken("meera@tippu");
         updateViewStrings();
 
         // setup button listeners
