@@ -71,4 +71,8 @@ o	Also, helps self-quarantine person to engage with chatbot about daily activiti
 * [Google Map API](https://cloud.google.com/maps-platform/): Google Maps API lets you customize maps with your own content and imagery for display on web pages and mobile devices. 
 
 
+## Technical Diagram
+
+![Technical_diagram_bost_app](https://user-images.githubusercontent.com/67637361/86242253-05963100-bbc2-11ea-89a2-a8b5694675fd.jpg)
+
 
