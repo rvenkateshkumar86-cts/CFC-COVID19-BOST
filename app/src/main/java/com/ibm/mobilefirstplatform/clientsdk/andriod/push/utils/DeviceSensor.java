@@ -31,6 +31,7 @@ import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -112,7 +113,8 @@ public class DeviceSensor implements SensorEventListener {
         if (Sensor.TYPE_AMBIENT_TEMPERATURE > 0) {
             Log.v(TAG, "temperature -- " + Sensor.TYPE_AMBIENT_TEMPERATURE);
             float ambient_temperature = sensorEvent.values[0];
-            temperature = String.valueOf(ambient_temperature);
+            double temp = (ambient_temperature * 1.8 ) + 32;
+            temperature = String.valueOf(temp);
         }
     }
 
@@ -139,32 +141,41 @@ public class DeviceSensor implements SensorEventListener {
         public void run() {
             Log.v(TAG, "SendTimerTask.run() entered");
             if (temperatureSensor == null) {
-               temperature = app.getRandomAmbientTemperature();
+              /* temperature = app.getRandomAmbientTemperature();*/
+                float ambient_temperature =Float.parseFloat(app.getRandomAmbientTemperature());
+                DecimalFormat df = new DecimalFormat("#.##");
+                double temp = (ambient_temperature * 1.8 ) + 32;
+
+                temperature = String.valueOf( df.format(temp));
             }
-            String messageData = MessageFactory.getAccelMessage(temperature);
-            /*String messageData = MessageFactory.getAccelMessage(temperature);*/
+            float temp = Float.parseFloat(temperature);
 
-            try {
-                // create ActionListener to handle message published results
-                MyIoTActionListener listener = new MyIoTActionListener(context, Constants.ActionStateStatus.PUBLISH);
-                IoTClient iotClient = IoTClient.getInstance(context);
-                if (app.getConnectionType() == Constants.ConnectionType.QUICKSTART) {
-                    iotClient.publishEvent(Constants.STATUS_EVENT, "json", messageData, 0, false,listener);
-                } else {
-                    iotClient.publishEvent(Constants.ACCEL_EVENT, "json", messageData, 0, false, listener);
-                }
+            if (temp>98) {
+                String messageData = MessageFactory.getAccelMessage(temperature);
+                /*String messageData = MessageFactory.getAccelMessage(temperature);*/
 
-                int count = app.getPublishCount();
-                app.setPublishCount(++count);
+                try {
+                    // create ActionListener to handle message published results
+                    MyIoTActionListener listener = new MyIoTActionListener(context, Constants.ActionStateStatus.PUBLISH);
+                    IoTClient iotClient = IoTClient.getInstance(context);
+                    if (app.getConnectionType() == Constants.ConnectionType.QUICKSTART) {
+                        iotClient.publishEvent(Constants.STATUS_EVENT, "json", messageData, 0, false, listener);
+                    } else {
+                        iotClient.publishEvent(Constants.ACCEL_EVENT, "json", messageData, 0, false, listener);
+                    }
 
-                //String runningActivity = app.getCurrentRunningActivity();
-                //if (runningActivity != null && runningActivity.equals(IoTPagerFragment.class.getName())) {
+                    int count = app.getPublishCount();
+                    app.setPublishCount(++count);
+
+                    //String runningActivity = app.getCurrentRunningActivity();
+                    //if (runningActivity != null && runningActivity.equals(IoTPagerFragment.class.getName())) {
                     Intent actionIntent = new Intent(Constants.APP_ID + Constants.INTENT_IOT);
                     actionIntent.putExtra(Constants.INTENT_DATA, Constants.INTENT_DATA_PUBLISHED);
                     context.sendBroadcast(actionIntent);
-                //}
-            } catch (MqttException e) {
-                Log.d(TAG, ".run() received exception on publishEvent()");
+                    //}
+                } catch (MqttException e) {
+                    Log.d(TAG, ".run() received exception on publishEvent()");
+                }
             }
             app.setAccelDataTemp(temperature);
 

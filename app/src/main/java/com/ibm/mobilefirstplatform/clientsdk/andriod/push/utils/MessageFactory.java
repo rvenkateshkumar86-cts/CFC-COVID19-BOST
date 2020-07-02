@@ -31,6 +31,7 @@ public class MessageFactory {
      * @return String containing JSON formatted message
      */
     public static String getAccelMessage(String temperature) {
+
     /*public static String getAccelMessage(float temperature) {*/
         // Android does not support the X pattern, so use Z and insert ':' if required.
         DateFormat isoDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
@@ -44,17 +45,6 @@ public class MessageFactory {
                 "\"temperature\":" + temperature+ ", " +
                 "\"timestamp\":\"" + isoTimestamp + "\" " +
                 "} }";
-    }
-
-    /**
-     * Construct a JSON formatted string text event message
-     * @param text String of text message to send
-     * @return String containing JSON formatted message
-     */
-    public static String getTextMessage(String text) {
-        return "{\"d\":{" +
-                "\"text\":\"" + text + "\"" +
-                " } }";
     }
 
     /**

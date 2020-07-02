@@ -121,18 +121,17 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
         updateViewStrings();
 
         // setup button listeners
-        Button button = (Button) getActivity().findViewById(R.id.sendText);
-        button.setOnClickListener(new View.OnClickListener() {
+       /* Button button = (Button) getActivity().findViewById(R.id.sendText);*/
+      /*  button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleSendText();
             }
-        });
+        });*/
 
         DrawingView drawingView = (DrawingView) getActivity().findViewById(R.id.drawing);
         drawingView.setContext(context);
     }
-
     /**
      * Update strings in the fragment based on IoTStarterApplication values.
      */
@@ -161,56 +160,6 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
      * Functions to handle button presses
      **************************************************************************/
 
-    /**
-     * Handle pressing of the send text button. Prompt the user to enter text
-     * to send.
-     */
-    private void handleSendText() {
-        Log.d(TAG, ".handleSendText() entered");
-        if (app.getConnectionType() != Constants.ConnectionType.QUICKSTART) {
-            final EditText input = new EditText(context);
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(getResources().getString(R.string.send_text_title))
-                    .setMessage(getResources().getString(R.string.send_text_text))
-                    .setView(input)
-                    .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            Editable value = input.getText();
-                            String messageData = MessageFactory.getTextMessage(value.toString());
-                            try {
-                                // create ActionListener to handle message published results
-                                MyIoTActionListener listener = new MyIoTActionListener(context, Constants.ActionStateStatus.PUBLISH);
-                                IoTClient iotClient = IoTClient.getInstance(context);
-                                iotClient.publishEvent(Constants.TEXT_EVENT, "json", messageData, 0, false, listener);
-
-                                int count = app.getPublishCount();
-                                app.setPublishCount(++count);
-
-                                String runningActivity = app.getCurrentRunningActivity();
-                                if (runningActivity != null && runningActivity.equals(IoTPagerFragment.class.getName())) {
-                                    Intent actionIntent = new Intent(Constants.APP_ID + Constants.INTENT_IOT);
-                                    actionIntent.putExtra(Constants.INTENT_DATA, Constants.INTENT_DATA_PUBLISHED);
-                                    context.sendBroadcast(actionIntent);
-                                }
-                            } catch (MqttException e) {
-                                // Publish failed
-                            }
-                        }
-                    }).setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // Do nothing.
-                }
-            }).show();
-        } else {
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(getResources().getString(R.string.send_text_title))
-                    .setMessage(getResources().getString(R.string.send_text_invalid))
-                    .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        }
-                    }).show();
-        }
-    }
 
     /**************************************************************************
      * Functions to process intent broadcasts from other classes
@@ -278,6 +227,6 @@ public class IoTPagerFragment extends IoTStarterPagerFragment {
     private void processAccelEvent() {
         Log.v(TAG, ".processAccelEvent()");
         String accelDataTemp = app.getAccelDataTemp();
-        ((TextView) getActivity().findViewById(R.id.accelTemp)).setText("temp: " + accelDataTemp + " C");
+        ((TextView) getActivity().findViewById(R.id.accelTemp)).setText("temp: " + accelDataTemp + " F");
     }
 }
