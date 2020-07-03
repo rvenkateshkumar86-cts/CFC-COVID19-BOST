@@ -6,12 +6,12 @@
 ## Project Team Name - Team Spartan
 
 ## Project description
-BOST (Be on Safe Track) is a mobile app used for both COVID-19 patient and doctors. It helps doctor to priortize the patient based on age, temperature etc. Also, it helps user to track travel coordinates, check temperature and notify the doctors based on temperature exceeds threshold values.
+BOST (Be on Safe Track) is a mobile app used for both COVID-19 patient and ordinary users. It helps ordinary user to check with his vital signs wheather he got affected with covid-19. Also, it helps user to track travel coordinates, check temperature and notify the doctors based on temperature exceeds threshold values.
 
 ## Current Problems
 
 In day-to-day process, identify the COVID-19 positive patient is very difficult by verifying the user from multiple channels like airport, trains, buses etc. We need to maintain separate security team to manual check user using temperature check machine and updating on the software manually.  Self-quarantine patients has to check with doctor frequently over phone calls/messaging manually about daily activities. Also, patient need someone help to get daily foods and others.
-In addition, for doctors who are attending the COVID-19 patients on the hospital there are facing difficult to treat patients based on priorities since cases are increasing drastically all over the world. Doctor has to find critical patient manually.
+In addition, a user can check wheather there is a chance to be covid-19 affected by checking his vitals.
 
 ## Solutions
 
