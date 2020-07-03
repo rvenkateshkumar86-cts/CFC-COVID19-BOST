@@ -15,8 +15,8 @@ In addition, for doctors who are attending the COVID-19 patients on the hospital
 
 ## Solutions
 
-An Mobile app will be maintains based on IBM cloud services in order to support the following features in which two different way of services will be availed based on users and doctors.
-*	To monitor patient’s details (Blood Pressure, Pulse Rate, Respiratory Rate) and to decide which patients should get more attention. A video Feed also help to know the status of the patients. With the help of 3-4 volunteers, a single doctor can handle nearly 100 patients at a time.
+An Mobile app will be maintains based on IBM cloud services in order to support the following features in which different way of services will be availed to the  user.
+*	The user can himself monitor his health by providing basic vital signs and can check wheather there is a chance to him to be affected with covid 19 and go further for a physical test.
 *	Temperature check is integrated with bar code like aadhar bar codes, in which temperature will be recorded at each time if a person is moving in and out in office or hotels etc.
 This data will recorded separately for each person. This temperature records will be helpful for 
 hospitals ,so that , at which time or place a person got temperature variation can be identified and they can easy track the covid -19 contact cases.
@@ -28,7 +28,7 @@ hospitals ,so that , at which time or place a person got temperature variation c
     * To provide statistics of nearby hospitals with covid treatment facilities. It should provide data about provision for ventilators, doctors, free beds/rooms, ICU
       vacancies etc so that patients need not go in search of vacancies from one hospital to other and thus help in reducing queuing up in hospital
     * Also, helps self-quarantine person to engage with chatbot about daily activities, exercise, food etc based on age and weight categories.
-* Notify users and doctors about frequent update on VIRUS related news feed based on location.
+* Notify user about frequent update on VIRUS related news feed based on location.
 * Track user travels based on Geospatial analytics details.
 
 
