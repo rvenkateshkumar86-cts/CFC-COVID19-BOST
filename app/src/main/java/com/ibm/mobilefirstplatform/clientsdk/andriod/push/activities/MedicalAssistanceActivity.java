@@ -23,6 +23,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.net.ssl.SSLContext;
 
+import static com.ibm.mobilefirstplatform.clientsdk.android.push.R.id.gender;
+
 public class MedicalAssistanceActivity extends Activity {
     private AutoAIConnector connector = AutoAIConnector.getInstance();
     AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
@@ -40,12 +42,12 @@ public class MedicalAssistanceActivity extends Activity {
         final EditText oxySaturation = (EditText) findViewById(R.id.oxySaturation);
         final TextView resultTextView =(TextView) findViewById(R.id.result);
         resultTextView.setText("");
-//        awesomeValidation.addValidation(this,R.id.gender, "[FM]$", R.string.gendererror);
-//        awesomeValidation.addValidation(this,R.id.age, "^0*(?:[1-9][0-9]?|100)$", R.string.ageerror);
-//        awesomeValidation.addValidation(this,R.id.temp, "^0*(?:[1-9][0-9]?|100)$", R.string.temperror);
-//        awesomeValidation.addValidation(this,R.id.respRate, "^0*(?:[1-9][0-9]?|100)$", R.string.resprsteerror);
-//        awesomeValidation.addValidation(this,R.id.pulseRate, "^0*(?:[1-9][1-9][0-9]?|100)$", R.string.pulseRateerror);
-//        awesomeValidation.addValidation(this,R.id.oxySaturation, "^0*(?:[1-9][0-9]?|100)$", R.string.oxySaterror);
+        awesomeValidation.addValidation(this, R.id.gender, "[FM]$", R.string.gendererror);
+        awesomeValidation.addValidation(this,R.id.age, "^0*(?:[1-9][0-9]?|100)$", R.string.ageerror);
+        awesomeValidation.addValidation(this,R.id.temp, "^0*(?:[1-9][0-9]?|100)$", R.string.temperror);
+        awesomeValidation.addValidation(this,R.id.respRate, "^0*(?:[1-9][0-9]?|100)$", R.string.resprateerror);
+        awesomeValidation.addValidation(this,R.id.pulseRate, "^0*(?:[1-9][0-9][0-9]?|100)$", R.string.pulseRateerror);
+        awesomeValidation.addValidation(this,R.id.oxySaturation, "^0*(?:[1-9][0-9]?|100)$", R.string.oxySaterror);
 
 
         SSLContext sslContext;
