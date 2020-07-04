@@ -50,6 +50,8 @@
     <string name="clear_profiles_label">Clear Profiles</string>
     <string name="clear_log_label">Clear Log</string>
     <string name="tutorial_label">Open Tutorial</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDaFr7xyiEZeMnMOSOwGu1kFAND-XKMOds</string>
+
 
     <!-- Begin Login Fragment -->
     <string name="showToken_button">Show Auth Token</string>

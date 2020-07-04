@@ -18,9 +18,8 @@ package com.ibm.mobilefirstplatform.clientsdk.andriod.push.fragments;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-
+import androidx.fragment.app.Fragment;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.CheckTemperatureActivity;
 
