@@ -1,4 +1,5 @@
 package com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.NotificationConnector;
 import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -45,6 +48,11 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        String appGuid = getResources().getString(R.string.appGUID);
+        String clientSecret = getResources().getString(R.string.pushClientSecret);
+        String pushBackendURL = getResources().getString(R.string.pushBackUrl);
+        String functionDiscoveryURL = getResources().getString(R.string.discoveryFunctionUrl);
+        NotificationConnector.initialize(pushBackendURL, functionDiscoveryURL, clientSecret, getApplicationContext());
         super.onCreate(savedInstanceState);
         final Double[] pastLatitude = {0.0};
         final Double[] pastLongitude = {0.0};
@@ -116,9 +124,10 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
 //        }
 
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7200000, 30, new LocationListener() {
                 @Override
                 public void onLocationChanged(@NonNull Location location) {
+                    String currentLocation = "";
                     //latitude
                     final double latitude = location.getLatitude();
                     //longitude
@@ -130,15 +139,59 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                         String result
                                 = addressList.get(0).getLocality() + ":";
                         result += addressList.get(0).getCountryName();
+                        currentLocation = addressList.get(0).getLocality();
                         mMap.addMarker(new MarkerOptions().position(latLng).title(result));
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
+                    String pastCity = "";
+                    double dist = 0.0;
                     if((pastLatitude[0] != 0 && pastLatitude[0] != latitude) && (pastLongitude[0] != 0 && pastLongitude[0] != longitude)) {
+                        try {
+                            Geocoder geo = new Geocoder(UserTrackerActivity.this.getApplicationContext(), Locale.getDefault());
+
+                            //To get past location in city
+                            List<Address> addresses = geo.getFromLocation(latitude, longitude, 1);
+                            if (addresses.isEmpty()) {
+                                Log.d("Past", "Location not found");
+                            }
+                            else {
+                                if (addresses.size() > 0) {
+                                    pastCity =  addresses.get(0).getLocality();
+                                    // yourtextfieldname.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
+                                    //Toast.makeText(getApplicationContext(), "Address:- " + addresses.get(0).getFeatureName() + addresses.get(0).getAdminArea() + addresses.get(0).getLocality(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            //code to get distance between past and current location
+                            double theta = pastLongitude[0] - longitude;
+                            dist = Math.sin(Math.toRadians(pastLatitude[0])) * Math.sin(Math.toRadians(latitude)) + Math.cos(Math.toRadians(pastLatitude[0])) * Math.cos(Math.toRadians(latitude)) * Math.cos(Math.toRadians(theta));
+                            dist = Math.acos(dist);
+                            dist = Math.toDegrees(dist);
+                            dist = dist * 60 * 1.1515;
+                            dist = dist * 1.609344;
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace(); // getFromLocation() may sometimes fail
+                        }
+
                         ref.child("PastLatitude").setValue(latitude);
                         ref.child("PastLongitude").setValue(longitude);
+
+
+                        try {
+                            Log.d("Moved", "You're Moved");
+                            if(dist >= 50) {
+                                NotificationConnector.getInstance().publishNews("We recently monitor you that you have travel from current location to far place more than 50 km. \n" +
+                                        "If you are COVID 19 impacted person, please reach out to below helpline:\n" +
+                                        "Helpline Number :+91-11-23978046 Toll Free : 1075 Helpline Email ID : ncov2019@gov.in" ) ;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     if(latitude != 0 && longitude !=0) {
