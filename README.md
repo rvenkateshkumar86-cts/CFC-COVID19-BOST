@@ -31,6 +31,9 @@ hospitals ,so that , at which time or place a person got temperature variation c
 * Notify user about frequent update on VIRUS related news feed based on location.
 * Track user travels based on Geospatial analytics details.
 
+## High Level Architecture Diagram
+
+![architectural_diagram_bost_app](https://user-images.githubusercontent.com/67637361/86685668-50c89d80-c021-11ea-90d1-fc882520cfad.jpg)
 
 ## Included components
 
