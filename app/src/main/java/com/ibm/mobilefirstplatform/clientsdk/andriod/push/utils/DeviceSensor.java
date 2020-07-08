@@ -149,10 +149,18 @@ public class DeviceSensor implements SensorEventListener {
                 temperature = String.valueOf( df.format(temp));
             }
             float temp = Float.parseFloat(temperature);
+            ArrayList<String> deviceId = new ArrayList<String>();
+            deviceId.add("112233445566");
+            deviceId.add("jsdfsdfhdhf3243");
 
             if (temp>98) {
                 String messageData = MessageFactory.getAccelMessage(temperature);
-                /*String messageData = MessageFactory.getAccelMessage(temperature);*/
+                try {
+                    NotificationConnector.getInstance().sendNotificationToAdmin("We recently monitor a user whose temperature is more than 98 degree.Phone number: \"9999445558\"  deviceId:" + deviceId,
+                            deviceId);
+                }catch (IOException | JSONException e){
+                    e.printStackTrace();
+                }
 
                 try {
                     // create ActionListener to handle message published results

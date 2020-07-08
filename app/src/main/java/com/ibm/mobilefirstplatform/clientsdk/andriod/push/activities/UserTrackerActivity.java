@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -179,12 +180,18 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                         ref.child("PastLatitude").setValue(latitude);
                         ref.child("PastLongitude").setValue(longitude);
 
+                        ArrayList<String> deviceId = new ArrayList<String>();
+                        deviceId.add("112233445566");
+                        deviceId.add("jsdfsdfhdhf3243");
+
 
                         try {
                             Log.d("Moved", "You're Moved");
                             if(dist >= 50) {
                                 NotificationConnector.getInstance().sendNotificationToALL("We recently monitor you that you have travel from current location to far more than 50 km. \n" +
                                         "We inform you that you will be monitor after every 1 km from here if you already have EPASS, Please ignore it");
+                                NotificationConnector.getInstance().sendNotificationToAdmin( "We recently monitor the below" +  deviceId + "has been travelled more than 50 km from his/her current location.Phone number: \"9999445558\" ",
+                                        deviceId);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
