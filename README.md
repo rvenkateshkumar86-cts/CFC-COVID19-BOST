@@ -35,6 +35,39 @@ hospitals ,so that , at which time or place a person got temperature variation c
 
 ![architectural_diagram_bost_app](https://user-images.githubusercontent.com/67637361/86685668-50c89d80-c021-11ea-90d1-fc882520cfad.jpg)
 
+## Step Flow
+
+### Flow 1 (Normal User)
+
+* Register your device with BOST Application.
+* Receive notification about covid-19 latest updates every 30 minutes.
+* Check whether a chance of covid-19 affected by providing vital information.
+* Use chatbot facility to get information about no. of covid-19 patients in an area, safe zones to travel, covid-19 treatment hospitals.
+* Verify your temperature any time using your smart phone.
+* Track user location to store history of visits in offline and notify him on crossing 50km.
+
+### Flow 2 (Covid-19 affected User)
+
+* Register your device with BOST Application.
+* Receive notification about covid-19 latest updates every 30 minutes.
+* Use chatbot facility to put requests for food, medicine, vehicle/ambulance needs and treated with high priority.
+* Track user location to store history of visits in offline and notify him on crossing 50km.
+* Verify your temperature any time using your smart phone.
+
+### Flow 3 (Public Servant)
+
+* Register your device with BOST Application.
+* Receive notification about covid-19 latest updates every 30 minutes.
+* Use chatbot facility to get information about no. of covid patients in an area, safe zones to travel, covid treatment hospitals.
+* Track both normal and covid-19 affected user location and get notification as device Id and mobile number on crossing 50km from initial location.
+* Get notification as device Id and mobile number of a normal user or covid-1 affected user when he is crossing a temperature of 98˚F.
+
+## Technical Diagram
+
+![TechnicalDiagram](https://user-images.githubusercontent.com/67637361/86258121-1487de00-bbd8-11ea-94d9-b0f298d2352e.jpg)
+
+
+
 ## Included components
 
 * [IBM Cloud Storage](https://www.ibm.com/in-en/cloud/object-storage): Cloud Object Storage makes it possible to store practically limitless amounts of data, simply and cost effectively. It is commonly used for data archiving and backup, web and mobile applications, and as scalable, persistent storage for analytics.
@@ -78,9 +111,5 @@ hospitals ,so that , at which time or place a person got temperature variation c
 
 * [Google Map API](https://cloud.google.com/maps-platform/): Google Maps API lets you customize maps with your own content and imagery for display on web pages and mobile devices. 
 
-
-## Technical Diagram
-
-![TechnicalDiagram](https://user-images.githubusercontent.com/67637361/86258121-1487de00-bbd8-11ea-94d9-b0f298d2352e.jpg)
 
 
