@@ -178,7 +178,7 @@ public class MainActivity extends Activity {
                 try {
                     String result = NotificationConnector.getInstance().getLatestNews();
                     result = result.replace("\n", "");
-                    NotificationConnector.getInstance().publishNews(result);
+                    NotificationConnector.getInstance().sendNotificationToALL(result);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {

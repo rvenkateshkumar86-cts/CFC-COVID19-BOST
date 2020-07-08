@@ -123,7 +123,7 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
 //            return;
 //        }
 
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if(isGPSEnabled(getApplicationContext())) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7200000, 30, new LocationListener() {
                 @Override
                 public void onLocationChanged(@NonNull Location location) {
@@ -183,9 +183,8 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                         try {
                             Log.d("Moved", "You're Moved");
                             if(dist >= 50) {
-                                NotificationConnector.getInstance().publishNews("We recently monitor you that you have travel from current location to far place more than 50 km. \n" +
-                                        "If you are COVID 19 impacted person, please reach out to below helpline:\n" +
-                                        "Helpline Number :+91-11-23978046 Toll Free : 1075 Helpline Email ID : ncov2019@gov.in" ) ;
+                                NotificationConnector.getInstance().sendNotificationToALL("We recently monitor you that you have travel from current location to far more than 50 km. \n" +
+                                        "We inform you that you will be monitor after every 1 km from here if you already have EPASS, Please ignore it");
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

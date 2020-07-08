@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.IAMToken;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.NewsResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public final class NotificationConnector {
     private final String backendUrl;
@@ -60,7 +62,7 @@ public final class NotificationConnector {
         return response.getResult();
     }
 
-    public void publishNews(String newsFeed) throws IOException, JSONException {
+    public void sendNotificationToALL(String text) throws IOException, JSONException {
         HttpURLConnection scoringConnection = null;
         BufferedReader scoringBuffer = null;
         StringBuffer jsonStringScoring = new StringBuffer();
@@ -74,8 +76,43 @@ public final class NotificationConnector {
         scoringConnection.setRequestProperty("clientSecret", clientSecret);
         JSONObject data = new JSONObject();
         JSONObject message = new JSONObject();
-        message.put("alert", newsFeed);
+        message.put("alert", text);
         data.put("message", message);
+        OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
+        String payload = data.toString();
+        writer.write(payload);
+        writer.close();
+
+        scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
+        String lineScoring;
+        while ((lineScoring = scoringBuffer.readLine()) != null) {
+            jsonStringScoring.append(lineScoring);
+        }
+    }
+
+    public void sendNotificationToAdmin(String text, List<String> deviceIDs) throws IOException, JSONException {
+        HttpURLConnection scoringConnection = null;
+        BufferedReader scoringBuffer = null;
+        StringBuffer jsonStringScoring = new StringBuffer();
+        URL scoringUrl = new URL(backendUrl);
+        scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
+        scoringConnection.setDoInput(true);
+        scoringConnection.setDoOutput(true);
+        scoringConnection.setRequestMethod("POST");
+        scoringConnection.setRequestProperty("Accept", "application/json");
+        scoringConnection.setRequestProperty("Content-Type", "application/json");
+        scoringConnection.setRequestProperty("clientSecret", clientSecret);
+        JSONObject data = new JSONObject();
+        JSONObject message = new JSONObject();
+        message.put("alert", text);
+        data.put("message", message);
+        JSONObject target = new JSONObject();
+        JSONArray deviceArrays = new JSONArray();
+        for (String deviceId: deviceIDs) {
+            deviceArrays.put(deviceId);
+        }
+        target.put("deviceIds", deviceArrays);
+        data.put("target", target);
         OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
         String payload = data.toString();
         writer.write(payload);
