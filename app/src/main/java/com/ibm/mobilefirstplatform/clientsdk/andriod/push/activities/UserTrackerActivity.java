@@ -1,4 +1,5 @@
 package com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.NotificationConnector;
 import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
@@ -99,6 +100,21 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                     double longitude = location.getLongitude();
                     Log.d("fusedLocationClient","latitude and longitude:" + latitude +"and" +longitude);
 
+                    Geocoder myLocation = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    try {
+                        LatLng latLng = new LatLng(latitude,longitude);
+                        String currentLocation = "";
+                        List<Address> addressList =  myLocation.getFromLocation(latitude,longitude,1);
+                        String result
+                                = addressList.get(0).getLocality() + ":";
+                        result += addressList.get(0).getCountryName();
+                        currentLocation = addressList.get(0).getLocality();
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(result));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -180,9 +196,11 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                         ref.child("PastLatitude").setValue(latitude);
                         ref.child("PastLongitude").setValue(longitude);
 
-                        ArrayList<String> deviceId = new ArrayList<String>();
-                        deviceId.add("112233445566");
-                        deviceId.add("jsdfsdfhdhf3243");
+                        BOSTStarterApplication app;
+                        Context context = null;
+                        app = (BOSTStarterApplication) context.getApplicationContext();
+                        List<String> publicServiceDeviceIds = new ArrayList<String>();
+                        publicServiceDeviceIds.add("64c08e7671db4996");
 
 
                         try {
@@ -190,8 +208,8 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                             if(dist >= 50) {
                                 NotificationConnector.getInstance().sendNotificationToALL("We recently monitor you that you have travel from current location to far more than 50 km. \n" +
                                         "We inform you that you will be monitor after every 1 km from here if you already have EPASS, Please ignore it");
-                                NotificationConnector.getInstance().sendNotificationToAdmin( "We recently monitor the below" +  deviceId + "has been travelled more than 50 km from his/her current location.Phone number: \"9999445558\" ",
-                                        deviceId);
+                                NotificationConnector.getInstance().sendNotificationToAdmin( "We recently monitor the below " + app.getAndriodDeviceId() +" has been travelled more than 50 km from his/her current location.Phone number: \"9999445558\" ",
+                                        publicServiceDeviceIds );
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
