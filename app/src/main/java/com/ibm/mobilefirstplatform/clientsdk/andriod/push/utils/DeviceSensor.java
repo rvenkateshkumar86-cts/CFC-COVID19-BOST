@@ -28,10 +28,15 @@ import android.widget.Toast;
 
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.NotificationConnector;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -149,18 +154,12 @@ public class DeviceSensor implements SensorEventListener {
                 temperature = String.valueOf( df.format(temp));
             }
             float temp = Float.parseFloat(temperature);
-            ArrayList<String> deviceId = new ArrayList<String>();
-            deviceId.add("112233445566");
-            deviceId.add("jsdfsdfhdhf3243");
+
+            List<String> publicServiceDeviceIds = new ArrayList<String>();
+            publicServiceDeviceIds.add("64c08e7671db4996");
 
             if (temp>98) {
                 String messageData = MessageFactory.getAccelMessage(temperature);
-                try {
-                    NotificationConnector.getInstance().sendNotificationToAdmin("We recently monitor a user whose temperature is more than 98 degree.Phone number: \"9999445558\"  deviceId:" + deviceId,
-                            deviceId);
-                }catch (IOException | JSONException e){
-                    e.printStackTrace();
-                }
 
                 try {
                     // create ActionListener to handle message published results
@@ -171,6 +170,13 @@ public class DeviceSensor implements SensorEventListener {
                     } else {
                         iotClient.publishEvent(Constants.ACCEL_EVENT, "json", messageData, 0, false, listener);
                     }
+
+                    String deviceId = app.getAndriodDeviceId();
+
+                    NotificationConnector.getInstance().sendNotificationToAdmin("We recently monitor a user whose temperature is more \n" +
+                            " than 98 degree.Phone number: \"9999445558\"  deviceId:" + deviceId,publicServiceDeviceIds) ;
+
+                    app.setAndriodDeviceId(deviceId);
 
                     int count = app.getPublishCount();
                     app.setPublishCount(++count);
@@ -183,6 +189,10 @@ public class DeviceSensor implements SensorEventListener {
                     //}
                 } catch (MqttException e) {
                     Log.d(TAG, ".run() received exception on publishEvent()");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             app.setAccelDataTemp(temperature);
