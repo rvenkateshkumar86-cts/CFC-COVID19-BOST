@@ -119,6 +119,9 @@
     <string name="oxySaterror">Oxy Saturation is Invalid</string>
     <!-- End Login Fragment dialog -->
 
+    <string name="what_s_on_your_mind">Enter your query</string>
+
+    <string name="menu_refresh">Refresh</string>
 
     <!-- End Tutorial Strings -->
 </resources>

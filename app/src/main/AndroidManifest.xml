@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication"
@@ -18,14 +19,20 @@
         android:icon="@drawable/ic_icon"
         android:logo="@drawable/ic_logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@style/AppTheme">
+        <!-- android:theme="@android:style/Theme.NoTitleBar" -->
+
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.UserTrackerActivity" android:launchMode="standard" />
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.ChatbotActivity" android:launchMode="standard" />
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MedicalAssistanceActivity"  android:launchMode="standard" />
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.CheckTemperatureActivity" android:launchMode="standard" />
         <activity
             android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

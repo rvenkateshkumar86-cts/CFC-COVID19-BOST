@@ -114,14 +114,15 @@
                 android:layout_gravity="center|bottom"
                 android:text="@string/showToken_button"
                 android:id="@+id/showTokenButton"/>
+        <!--android:onClick="onCheckboxClicked"/-->
         <CheckBox
-                android:id="@+id/checkbox_ssl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/useSSL_button"
-                android:checked="true"/>
-                <!--android:onClick="onCheckboxClicked"/-->
+            android:id="@+id/checkbox_ssl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:checked="true"
+            android:text="@string/useSSL_button" />
+
         <TextView
                 style="@style/MyActionBarTitleText"
                 android:layout_width="wrap_content"
