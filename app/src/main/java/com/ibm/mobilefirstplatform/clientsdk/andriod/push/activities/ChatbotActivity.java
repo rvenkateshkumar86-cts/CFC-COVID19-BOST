@@ -136,7 +136,7 @@ public class ChatbotActivity extends AppCompatActivity {
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "Permission to record denied");
-            makeRequest();
+            //makeRequest();
         } else {
             Log.i(TAG, "Permission to record was already granted");
         }
@@ -166,12 +166,12 @@ public class ChatbotActivity extends AppCompatActivity {
             }
         });
 
-        btnRecord.setOnClickListener(new View.OnClickListener() {
+        /* btnRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recordMessage();
             }
-        });
+        });*/
 
         createServices();
         sendMessage();
