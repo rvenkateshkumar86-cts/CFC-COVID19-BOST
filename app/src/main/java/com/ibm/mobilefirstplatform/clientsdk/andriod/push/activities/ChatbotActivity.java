@@ -80,7 +80,7 @@ public class ChatbotActivity extends AppCompatActivity {
     private SpeechToText speechService;
     private TextToSpeech textToSpeech;
     private void createServices() {
-        watsonAssistant = new Assistant("2019-02-28", new IamAuthenticator(mContext.getString(R.string.assistant_apikey)));
+        watsonAssistant = new Assistant("2020-07-01", new IamAuthenticator(mContext.getString(R.string.assistant_apikey)));
         watsonAssistant.setServiceUrl(mContext.getString(R.string.assistant_url));
 
         textToSpeech = new TextToSpeech(new IamAuthenticator((mContext.getString(R.string.TTS_apikey))));
@@ -146,7 +146,7 @@ public class ChatbotActivity extends AppCompatActivity {
             public void onClick(View view, final int position) {
                 Message audioMessage = (Message) messageArrayList.get(position);
                 if (audioMessage != null && !audioMessage.getMessage().isEmpty()) {
-                    new SayTask().execute(audioMessage.getMessage());
+                    //new SayTask().execute(audioMessage.getMessage());
                 }
             }
 
@@ -289,7 +289,7 @@ public class ChatbotActivity extends AppCompatActivity {
                                     messageArrayList.add(outMessage);
 
                                     // speak the message
-                                    new SayTask().execute(outMessage.getMessage());
+                                   // new SayTask().execute(outMessage.getMessage());
                                     break;
 
                                 case "option":
@@ -307,7 +307,7 @@ public class ChatbotActivity extends AppCompatActivity {
                                     messageArrayList.add(outMessage);
 
                                     // speak the message
-                                    new SayTask().execute(outMessage.getMessage());
+                                    //new SayTask().execute(outMessage.getMessage());
                                     break;
 
                                 case "image":
@@ -315,7 +315,7 @@ public class ChatbotActivity extends AppCompatActivity {
                                     messageArrayList.add(outMessage);
 
                                     // speak the description
-                                    new SayTask().execute("You received an image: " + outMessage.getTitle() + outMessage.getDescription());
+                                    //new SayTask().execute("You received an image: " + outMessage.getTitle() + outMessage.getDescription());
                                     break;
                                 default:
                                     Log.e("Error", "Unhandled message type");
