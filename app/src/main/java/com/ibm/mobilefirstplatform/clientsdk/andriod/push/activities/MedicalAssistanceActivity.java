@@ -1,29 +1,23 @@
 package com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities;
 
 import android.app.Activity;
-
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.google.android.gms.security.ProviderInstaller;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.AutoAIResponse;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.PatientDTO;
-import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.AutoAIConnector;
-import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.service.autofill.RegexValidator;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.security.NoSuchAlgorithmException;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.google.android.gms.security.ProviderInstaller;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.AutoAIResponse;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.PatientDTO;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.AutoAIConnector;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
 import javax.net.ssl.SSLContext;
-
-import static com.ibm.mobilefirstplatform.clientsdk.android.push.R.id.gender;
 
 public class MedicalAssistanceActivity extends Activity {
     private AutoAIConnector connector = AutoAIConnector.getInstance();
@@ -73,7 +67,7 @@ public class MedicalAssistanceActivity extends Activity {
                         AutoAIResponse response = connector.submitData(patientDto);
                         if (null != response) {
                             String result = String.valueOf(response.getPredictions().get(0).getValues().get(0));
-                            resultTextView.setText(result != null ? result.toLowerCase().contains("yes") ? "Chance of Affected" : "You are safe" : "");
+                            resultTextView.setText(result != null ? result.toLowerCase().contains("yes") ? "Chance of affected" : "You are safe" : "");
                         }
                     }
                    }});

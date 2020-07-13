@@ -122,6 +122,10 @@
     <string name="what_s_on_your_mind">Enter your query</string>
 
     <string name="menu_refresh">Refresh</string>
-
+    <string-array name="userCategory">
+        <item>Normal User</item>
+        <item>Covid-19 Affected User</item>
+        <item>Public Servant</item>
+    </string-array>
     <!-- End Tutorial Strings -->
 </resources>

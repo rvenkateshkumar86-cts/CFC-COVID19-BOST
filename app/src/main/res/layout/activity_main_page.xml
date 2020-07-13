@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainPageActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/heading">
+<TextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#03A9F4"
+                android:text="BOST(Be On Safe Track)"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:verticalScrollbarPosition="defaultPosition" />
+
+            <TextView
+                android:id="@+id/textUser"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="80dp"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:text="Select User" />
+
+            <Spinner
+                android:id="@+id/selectUser"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:textSize="26sp"
+                android:background="#9CDFD5DE"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/textPhNumber"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:layout_gravity="center"
+                android:text="Phone Number" />
+
+            <TextView
+                android:id = "@+id/phoneNumber"
+                android:layout_width = "250dp"
+                android:layout_height = "30dp"
+                android:text = "hi"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:textSize="26sp"
+                android:layout_marginTop="30dp"
+                android:background="#2196F3"
+                android:fontFamily="Georgia"
+                android:layout_gravity="center"
+                android:onClick="handleHome"
+                tools:ignore="OnClick,handleHome"
+                android:text="Login" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
