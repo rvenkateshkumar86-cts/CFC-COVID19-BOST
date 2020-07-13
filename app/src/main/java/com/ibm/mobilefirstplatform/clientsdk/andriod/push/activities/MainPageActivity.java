@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
@@ -30,20 +31,9 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
 
     TextView phnumber;
     Button loginButton;
-    public static final String MyPREFERENCES = "MyPrefs";
-    public static final String Phone = "phoneKey";
-
-    public SharedPreferences getSharedpreferences() {
-        return sharedpreferences;
-    }
-
-    public void setSharedpreferences(SharedPreferences sharedpreferences) {
-        this.sharedpreferences = sharedpreferences;
-    }
+    public static final String Phone = "phoneKey-";
 
     private SharedPreferences sharedpreferences;
-    SharedPreferences.Editor editor;
-
     /*String mPhoneNumber;*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -51,7 +41,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        Log.d("created","hi");
+        sharedpreferences = ((BOSTStarterApplication) getApplicationContext()).getSettings();
         Spinner spinner =  (Spinner)findViewById(R.id.selectUser);
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(MainPageActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.userCategory));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,22 +63,11 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
             requestPermission();
         }
         String phoneNumber  = phnumber.getText().toString();
-      //  loginButton.setOnClickListener(this);
-        sharedpreferences=getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-       editor = sharedpreferences.edit();
-        editor.putString(Phone, phoneNumber);
-      editor.commit();
-
-        /*sharedpreferences = PreferenceManager
-              .getDefaultSharedPreferences(this);*/
-       String registeredPhNumber =sharedpreferences.getString(Phone,phoneNumber);
-       if(registeredPhNumber.equals(phnumber)) {
-
-           Intent intent = new Intent(MainPageActivity.this,MainActivity.class);
+        String registeredPhNumber =sharedpreferences.getString(Phone + phoneNumber,phoneNumber);
+        if(null != registeredPhNumber && !registeredPhNumber.isEmpty()) {
+           Intent intent = new Intent(getApplicationContext(),MainActivity.class);
            startActivity(intent);
         }
-
-      /* Log.i(TAG, "Ph.No"+bostStarterApplication.getPhnumber());*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -119,13 +98,15 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-       String phoneNumber  = phnumber.getText().toString();
-       editor.putString(Phone, phoneNumber);
+        String phoneNumber  = phnumber.getText().toString();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        String key = Phone + phoneNumber;
+        editor.putString(key, phoneNumber);
         editor.commit();
-        Intent intent = new Intent(MainPageActivity.this,MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
     }
-    }
+}
 
 
 

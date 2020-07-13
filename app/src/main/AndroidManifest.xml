@@ -30,8 +30,10 @@
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.CheckTemperatureActivity" android:launchMode="standard" />
         <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainActivity"
             android:launchMode="standard"/>
+        <activity android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainPageActivity"
+            android:launchMode="standard"/>
         <activity
-            android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.MainPageActivity"
+            android:name="com.ibm.mobilefirstplatform.clientsdk.andriod.push.activities.SplashActivity"
             android:label="@string/app_name" >
 
             <intent-filter>

@@ -253,6 +253,14 @@ public class BOSTStarterApplication extends Application {
         }
     }
 
+    public SharedPreferences getSettings() {
+        return settings;
+    }
+
+    public void setSettings(SharedPreferences settings) {
+        this.settings = settings;
+    }
+
     // Getters and Setters
     public String getCurrentRunningActivity() { return currentRunningActivity; }
 
