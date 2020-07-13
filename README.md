@@ -17,7 +17,7 @@ In addition, a user can check wheather there is a chance to be covid-19 affected
 
 An Mobile app will be maintains based on IBM cloud services in order to support the following features in which different way of services will be availed to the  user.
 *	The user can himself monitor his health by providing basic vital signs and can check wheather there is a chance to him to be affected with covid 19 and go further for a physical test.
-*	Temperature check feature is able to send temperature details to Watson IOT services for monitoring if any users temperature exceeds more than 98 Fahrenheit temperature.
+*	Temperature check feature and able to send temperature details to Watson IOT services for monitoring if any users temperature exceeds more than 98 Fahrenheit temperature.
  This temperature records will be helpful for hospitals ,so that , at which time a person got temperature variation can be identified and they can easy track the covid -19 contact cases.
 *	Chatbot assistant to provide the following features. 
 	  * To provide information about the number of covid patients in an area. This area should be as small as 3-5 km range. Based on this others can decide on whether to enter       these areas or bypass their routes/shopping destinations/visits to these areas based on the statistics
