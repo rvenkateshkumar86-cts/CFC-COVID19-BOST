@@ -4,7 +4,7 @@
     <string name="RegistrationButton">Register Device</string>
     <string name="DefaultLabel">BOST App</string>
     <string name="chatbot_button">Check for Chatbot Assitance</string>
-    <string name="medical_button">Priortize Patient</string>
+    <string name="medical_button">Self Assessment</string>
     <string name="temp_button">Check your Temperature</string>
     <string name="track_button">Track User</string>
     <string name="hello_world">Be On Safe Track!</string>
