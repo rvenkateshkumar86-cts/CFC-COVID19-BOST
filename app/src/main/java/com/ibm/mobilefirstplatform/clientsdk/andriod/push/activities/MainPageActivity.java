@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.UserType;
 import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
@@ -34,6 +35,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     public static final String Phone = "phoneKey-";
 
     private SharedPreferences sharedpreferences;
+    private BOSTStarterApplication app;
+    private Spinner spinner;
     /*String mPhoneNumber;*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -41,8 +44,9 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        sharedpreferences = ((BOSTStarterApplication) getApplicationContext()).getSettings();
-        Spinner spinner =  (Spinner)findViewById(R.id.selectUser);
+        app = (BOSTStarterApplication) getApplicationContext();
+        sharedpreferences = app.getSettings();
+        spinner =  (Spinner)findViewById(R.id.selectUser);
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(MainPageActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.userCategory));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
@@ -57,6 +61,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
             TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
             String mPhoneNumber = tMgr.getLine1Number();
             phnumber.setText(mPhoneNumber);
+            app.setPhoneNumber(mPhoneNumber);
              Log.i(TAG, "Ph.No"+mPhoneNumber);
             return;
         } else {
@@ -65,8 +70,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
         String phoneNumber  = phnumber.getText().toString();
         String registeredPhNumber =sharedpreferences.getString(Phone + phoneNumber,phoneNumber);
         if(null != registeredPhNumber && !registeredPhNumber.isEmpty()) {
-           Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-           startActivity(intent);
+            goToMainActivity();
         }
     }
 
@@ -99,10 +103,18 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         String phoneNumber  = phnumber.getText().toString();
+        String selectedUser = (String) spinner.getSelectedItem();
+        if (null != selectedUser && !selectedUser.isEmpty()) {
+            app.setUserType(UserType.valueOf(selectedUser));
+        }
         SharedPreferences.Editor editor = sharedpreferences.edit();
         String key = Phone + phoneNumber;
         editor.putString(key, phoneNumber);
         editor.commit();
+        goToMainActivity();
+    }
+
+    private void goToMainActivity() {
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
     }

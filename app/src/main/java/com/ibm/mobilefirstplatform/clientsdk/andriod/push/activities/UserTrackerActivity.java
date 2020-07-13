@@ -50,11 +50,6 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        String appGuid = getResources().getString(R.string.appGUID);
-        String clientSecret = getResources().getString(R.string.pushClientSecret);
-        String pushBackendURL = getResources().getString(R.string.pushBackUrl);
-        String functionDiscoveryURL = getResources().getString(R.string.discoveryFunctionUrl);
-        NotificationConnector.initialize(pushBackendURL, functionDiscoveryURL, clientSecret, getApplicationContext());
         super.onCreate(savedInstanceState);
         final Double[] pastLatitude = {0.0};
         final Double[] pastLongitude = {0.0};
@@ -201,14 +196,14 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                         app = (BOSTStarterApplication) context.getApplicationContext();
                         List<String> publicServiceDeviceIds = new ArrayList<String>();
                         publicServiceDeviceIds.add("64c08e7671db4996");
-
+                        String phoneNumber = app.getPhoneNumber();
 
                         try {
                             Log.d("Moved", "You're Moved");
                             if(dist >= 50) {
                                 NotificationConnector.getInstance().sendNotificationToALL("We recently monitor you that you have travel from current location to far more than 50 km. \n" +
                                         "We inform you that you will be monitor after every 1 km from here if you already have EPASS, Please ignore it");
-                                NotificationConnector.getInstance().sendNotificationToAdmin( "We recently monitor the below " + app.getAndriodDeviceId() +" has been travelled more than 50 km from his/her current location.Phone number: \"9999445558\" ",
+                                NotificationConnector.getInstance().sendNotificationToAdmin( "We recently monitor the below device id : " + app.getAndriodDeviceId() +" has been travelled more than 50 km from his/her current location.Phone number: " + app.getPhoneNumber(),
                                         publicServiceDeviceIds );
                             }
                         } catch (IOException e) {

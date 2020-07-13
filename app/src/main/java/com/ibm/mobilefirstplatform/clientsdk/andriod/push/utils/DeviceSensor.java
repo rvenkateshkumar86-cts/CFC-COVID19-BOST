@@ -172,9 +172,10 @@ public class DeviceSensor implements SensorEventListener {
                     }
 
                     String deviceId = app.getAndriodDeviceId();
+                    String phoneNumber = app.getPhoneNumber();
 
                     NotificationConnector.getInstance().sendNotificationToAdmin("We recently monitor a user whose temperature is more \n" +
-                            " than 98 degree.Phone number: \"9999445558\"  deviceId:" + deviceId,publicServiceDeviceIds) ;
+                            " than 98 degree.Phone number: " + phoneNumber + "  deviceId:" + deviceId,publicServiceDeviceIds) ;
 
                     app.setAndriodDeviceId(deviceId);
 

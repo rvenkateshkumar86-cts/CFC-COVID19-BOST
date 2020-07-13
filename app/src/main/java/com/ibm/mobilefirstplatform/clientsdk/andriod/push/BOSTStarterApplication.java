@@ -4,23 +4,19 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.hardware.Camera;
 import android.location.Location;
 import android.os.Build;
 import android.provider.Settings.Secure;
 import android.util.Log;
 
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTDevice;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.UserType;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.Constants;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.DeviceSensor;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.LocationUtils;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.utils.MyIoTCallbacks;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -39,6 +35,8 @@ public class BOSTStarterApplication extends Application {
     private String authToken;
     private Constants.ConnectionType connectionType;
     private boolean useSSL = true;
+    private UserType userType;
+    private String phoneNumber;
 
     private SharedPreferences settings;
 
@@ -59,8 +57,6 @@ public class BOSTStarterApplication extends Application {
 
     private DeviceSensor deviceSensor;
     private Location currentLocation;
-    private Camera camera;
-    private String cameraId;
 
     // Message log for log activity
     private final ArrayList<String> messageLog = new ArrayList<String>();
@@ -370,6 +366,22 @@ public class BOSTStarterApplication extends Application {
 
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAccelDataTemp() { return accelDataTemp; }
