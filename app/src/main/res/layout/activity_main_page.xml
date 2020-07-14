@@ -9,81 +9,96 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF">
+        android:background="@drawable/grad_front_page_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/heading">
-<TextView
+            app:layout_constraintTop_toBottomOf="@+id/heading"
+            android:paddingTop="90dp">
+            <TextView
                 android:id="@+id/heading"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#03A9F4"
-                android:text="BOST(Be On Safe Track)"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:fontFamily="sans-serif"
-                android:layout_gravity="center"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:verticalScrollbarPosition="defaultPosition" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
+                android:fontFamily="sans-serif-medium"
+                android:text="Be On Safe Track"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+
+                android:textSize="30sp"
+                android:textStyle="italic|bold"
+                android:verticalScrollbarPosition="defaultPosition" />
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Register with BOST"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="italic"/>
             <TextView
                 android:id="@+id/textUser"
                 android:layout_width="250dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="80dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:textColor="#000000"
-                android:textSize="26sp"
-                android:text="Select User" />
+                android:layout_marginTop="40dp"
+                android:text="Select User"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/selectUser"
                 android:layout_width="250dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:textSize="26sp"
-                android:background="#9CDFD5DE"
-                android:textColor="#000000" />
+                android:layout_height="30dp"
 
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+
+                android:background="@drawable/style_spinner"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
             <TextView
                 android:id="@+id/textPhNumber"
                 android:layout_width="250dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="30dp"
-                android:textColor="#000000"
-                android:textSize="26sp"
                 android:layout_gravity="center"
-                android:text="Phone Number" />
+                android:layout_marginTop="30dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Phone Number"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <TextView
-                android:id = "@+id/phoneNumber"
-                android:layout_width = "250dp"
-                android:layout_height = "30dp"
-                android:text = "hi"
-                android:textColor="#000000"
-                android:textSize="26sp"
-                android:layout_marginTop="30dp"
-                android:layout_gravity="center" />
+                android:id="@+id/phoneNumber"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:radius="10dp"
+                android:text="hi"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/login"
                 android:layout_width="250dp"
                 android:layout_height="30dp"
-                android:textSize="26sp"
-                android:layout_marginTop="30dp"
-                android:background="#2196F3"
-                android:fontFamily="Georgia"
                 android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="sans-serif-medium"
                 android:onClick="handleHome"
-                tools:ignore="OnClick,handleHome"
-                android:text="Login" />
+                android:text="Register"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                tools:ignore="OnClick,handleHome" />
 
         </LinearLayout>
     </ScrollView>
