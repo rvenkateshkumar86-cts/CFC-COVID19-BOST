@@ -22,10 +22,7 @@ public class ExampleUnitTest {
 
     @Test
     public void testAutoAI() throws Exception {
-        PatientDTO dto = new PatientDTO();
-        dto.setAge(34);
-        dto.setJob("IT");
-        dto.setMarital("Married");
+        PatientDTO dto = new PatientDTO("M", 34, 98, 98, 98, 98);
         AutoAIResponse response = connector.submitData(dto);
         assertTrue(response.getPredictions() != null);
         assertTrue(!response.getPredictions().get(0).getValues().isEmpty());

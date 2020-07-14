@@ -184,7 +184,7 @@ public class MainActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }},4000,1000 * 60 * 30);
+            }},4000,1000 * 60 * 60 * 24);
     }
 
     //TODO: Call this

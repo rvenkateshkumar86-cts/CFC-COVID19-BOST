@@ -12,7 +12,7 @@
     <string name="title_activity_check_temperature">CheckTemperatureActivity</string>
     <string name="appGUID">f8584c85-8a2f-45cc-96a2-0b06f25ef60c</string>
     <string name="pushClientSecret">"402d4529-6129-4caf-87a9-eb21170c52ba"</string>
-    <string name="discoveryFunctionUrl">https://us-south.functions.cloud.ibm.com/api/v1/web/VenkateshKumar.R2%40cognizant.com_dev/default/discovery-covid.json</string>
+    <string name="discoveryFunctionUrl">https://us-south.functions.cloud.ibm.com/api/v1/web/VenkateshKumar.R2%40cognizant.com_dev/default/NewsFeed.json</string>
     <string name="pushBackUrl">https://imfpush.ng.bluemix.net/imfpush/v1/apps/f8584c85-8a2f-45cc-96a2-0b06f25ef60c/messages</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDaFr7xyiEZeMnMOSOwGu1kFAND-XKMOds</string>
 
