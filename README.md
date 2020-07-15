@@ -2,6 +2,7 @@
 
 ## Call for Code Document
 
+[CFC_Cognizant__TeamPirates.docx](https://github.com/rvenkateshkumar86-cts/CFC-COVID19-BOST/files/4922976/CFC_Cognizant__TeamPirates.docx)
 
 ## Project Team Name - Team Spartan
 
