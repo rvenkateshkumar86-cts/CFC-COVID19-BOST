@@ -2,7 +2,7 @@
 
 ## Call for Code Document
 
-[CFC_Cognizant__TeamPirates.docx](https://github.com/rvenkateshkumar86-cts/CFC-COVID19-BOST/files/4922976/CFC_Cognizant__TeamPirates.docx)
+[CFC_Cognizant__TeamSpartans.docx](https://github.com/rvenkateshkumar86-cts/CFC-COVID19-BOST/files/4931521/CFC_Cognizant__TeamSpartans.docx)
 
 ## Project Team Name - Team Spartan
 
@@ -67,12 +67,9 @@ An Mobile app will be maintains based on IBM cloud services in order to support 
 ![TechnicalDiagram](https://user-images.githubusercontent.com/67637361/86258121-1487de00-bbd8-11ea-94d9-b0f298d2352e.jpg)
 
 
-
 ## Included components
 
 * [IBM Cloud Storage](https://www.ibm.com/in-en/cloud/object-storage): Cloud Object Storage makes it possible to store practically limitless amounts of data, simply and cost effectively. It is commonly used for data archiving and backup, web and mobile applications, and as scalable, persistent storage for analytics.
-
-* [IBM Cloudant](https://cloud.ibm.com/catalog/services/cloudant) : IBM Cloudant is a fully managed JSON document database that offers independent serverless scaling of provisioned throughput capacity and storage. Cloudant is compatible with Apache CouchDB and accessible through a simple to use HTTPS API for web, mobile, serverless, and IoT applications. Cloudant is SOC2 and ISO 27001 compliant with HIPAA readiness optional for Dedicated Hardware environments. 
 
 * [IBM Cloud Functions](https://cloud.ibm.com/openwhisk): Functions-as-a-Service (FaaS) platform used to run your application code without servers, scale it automatically, and pay nothing when it is not in use.It offers easy access to IBM Watson APIs within the event-trigger-action workflow, makes cognitive analysis of application data inherent to your workflows.
 
@@ -97,7 +94,6 @@ An Mobile app will be maintains based on IBM cloud services in order to support 
 
 * [Data Science](https://developer.ibm.com/technologies/data-science/): Systems and scientific methods to analyze structured and unstructured data in order to extract knowledge and insights.
 
-* [Cloundant Sync](https://www.ibm.com/cloud/learn/offline-first): Cloudant, built on open source Apache® CouchDB™, is designed so that CRUD and query requests go to the local replica, regardless of network state. Upon request, Cloudant’s Mobile Sync feature will keep the local replica and remote instance in sync, enabling offline functionality.
 
 * [Andriod SDK](https://developer.android.com/studio): The Android software development kit (SDK) includes a comprehensive set of development tools.These include a debugger, libraries, a handset emulator based on QEMU. Android apps can be written  mainly in Kotlin and Java.
 
