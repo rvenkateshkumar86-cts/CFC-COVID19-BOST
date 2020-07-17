@@ -23,9 +23,18 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.iot.IoTClient;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.NotificationConnector;
@@ -55,12 +64,43 @@ public class DeviceSensor implements SensorEventListener {
     private final Context context;
     private Timer timer;
     private boolean isEnabled = false;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
+    private List<String> publicServiceDeviceIds = new ArrayList<String>();
 
-    private DeviceSensor(Context context) {
+
+     private DeviceSensor(Context context) {
         this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         app = (BOSTStarterApplication) context.getApplicationContext();
         temperatureSensor= sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+
+
+         database = FirebaseDatabase.getInstance();
+         ref = database.getReference("PublicServiceDevice").child("DeviceId");
+         ref.keepSynced(true);
+
+            /*public void readData(ref , final OnGetDataListener listeners)  {
+
+            }*/
+         ref.addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                 Iterable<DataSnapshot> children = snapshot.getChildren();
+                 for (DataSnapshot child : children) {
+                     Object value = child.getValue();
+                     publicServiceDeviceIds.add(String.valueOf(value));
+                 }
+                 Log.d("Data From FireBase", "publicServiceDeviceIds:" + publicServiceDeviceIds);
+
+             }
+
+             @Override
+             public void onCancelled(DatabaseError error) {
+
+             }
+         });
     }
 
     /**
@@ -134,6 +174,7 @@ public class DeviceSensor implements SensorEventListener {
         Log.d(TAG, "onAccuracyChanged() entered");
     }
 
+
     /**
      * Timer task for sending accel data on 1000ms intervals
      */
@@ -155,8 +196,7 @@ public class DeviceSensor implements SensorEventListener {
             }
             float temp = Float.parseFloat(temperature);
 
-            List<String> publicServiceDeviceIds = new ArrayList<String>();
-            publicServiceDeviceIds.add("64c08e7671db4996");
+
 
             if (temp>98) {
                 String messageData = MessageFactory.getAccelMessage(temperature);
