@@ -77,6 +77,30 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
 
             }
         });
+
+        final List<String> publicServiceDeviceIds = new ArrayList<String>();
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("PublicServiceDevice").child("DeviceId");
+        ref.keepSynced(true);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Iterable<DataSnapshot> children = snapshot.getChildren();
+                    for (DataSnapshot child : children) {
+                        Object value = child.getValue();
+                        publicServiceDeviceIds.add(String.valueOf(value));
+                    }
+                    Log.d("Data From FireBase", "publicServiceDeviceIds:" + publicServiceDeviceIds);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
         //To get last known location
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Log.d("permission fine", String.valueOf(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)));
@@ -95,6 +119,12 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                     double longitude = location.getLongitude();
                     Log.d("fusedLocationClient","latitude and longitude:" + latitude +"and" +longitude);
 
+                    BOSTStarterApplication app = (BOSTStarterApplication) getApplication();
+                    String deviceid =  app.getAndriodDeviceId();
+                    /*ref = database.getReference("PublicServiceDevice");
+                    ref.keepSynced(true);
+                    ref.child("DeviceId").push().setValue(deviceid);*/
+
                     Geocoder myLocation = new Geocoder(getApplicationContext(), Locale.getDefault());
                     try {
                         LatLng latLng = new LatLng(latitude,longitude);
@@ -110,6 +140,59 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                         e.printStackTrace();
                     }
 
+                    String pastCity = "";
+                    double dist = 0.0;
+                    if((pastLatitude[0] != 0 && pastLatitude[0] != latitude) && (pastLongitude[0] != 0 && pastLongitude[0] != longitude)) {
+                        try {
+                            Geocoder geo = new Geocoder(UserTrackerActivity.this.getApplicationContext(), Locale.getDefault());
+
+                            //To get past location in city
+                            List<Address> addresses = geo.getFromLocation(latitude, longitude, 1);
+                            if (addresses.isEmpty()) {
+                                Log.d("Past", "Location not found");
+                            }
+                            else {
+                                if (addresses.size() > 0) {
+                                    pastCity =  addresses.get(0).getLocality();
+                                    // yourtextfieldname.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() +", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
+                                    //Toast.makeText(getApplicationContext(), "Address:- " + addresses.get(0).getFeatureName() + addresses.get(0).getAdminArea() + addresses.get(0).getLocality(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            //code to get distance between past and current location
+                            double theta = pastLongitude[0] - longitude;
+                            dist = Math.sin(Math.toRadians(pastLatitude[0])) * Math.sin(Math.toRadians(latitude)) + Math.cos(Math.toRadians(pastLatitude[0])) * Math.cos(Math.toRadians(latitude)) * Math.cos(Math.toRadians(theta));
+                            dist = Math.acos(dist);
+                            dist = Math.toDegrees(dist);
+                            dist = dist * 60 * 1.1515;
+                            dist = dist * 1.609344;
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace(); // getFromLocation() may sometimes fail
+                        }
+
+                        ref = database.getReference("Location");
+                        ref.keepSynced(true);
+                        ref.child("PastLatitude").setValue(latitude);
+                        ref.child("PastLongitude").setValue(longitude);
+
+
+                        String phoneNumber = app.getPhoneNumber();
+
+                        try {
+                            Log.d("Moved", "You're Moved");
+                            if(dist >= 50) {
+                                NotificationConnector.getInstance().sendNotificationToALL("We recently monitor you that you have travel from current location to far more than 50 km. \n" +
+                                        "We inform you that you will be monitor after every 1 km from here if you already have EPASS, Please ignore it");
+                                NotificationConnector.getInstance().sendNotificationToAdmin( "We recently monitor the below device id : " + app.getAndriodDeviceId() +" has been travelled more than 50 km from his/her current location.Phone number: " + app.getPhoneNumber(),
+                                        publicServiceDeviceIds );
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         });
@@ -188,14 +271,13 @@ public class UserTrackerActivity extends FragmentActivity implements OnMapReadyC
                             e.printStackTrace(); // getFromLocation() may sometimes fail
                         }
 
+                        ref = database.getReference("Location");
+                        ref.keepSynced(true);
                         ref.child("PastLatitude").setValue(latitude);
                         ref.child("PastLongitude").setValue(longitude);
 
-                        BOSTStarterApplication app;
-                        Context context = null;
-                        app = (BOSTStarterApplication) context.getApplicationContext();
-                        List<String> publicServiceDeviceIds = new ArrayList<String>();
-                        publicServiceDeviceIds.add("64c08e7671db4996");
+                        BOSTStarterApplication app = (BOSTStarterApplication) getApplication();
+                        final String deviceid =  app.getAndriodDeviceId();
                         String phoneNumber = app.getPhoneNumber();
 
                         try {
