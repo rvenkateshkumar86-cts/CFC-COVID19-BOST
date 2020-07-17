@@ -18,6 +18,8 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.UserType;
 import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
@@ -37,6 +39,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     private SharedPreferences sharedpreferences;
     private BOSTStarterApplication app;
     private Spinner spinner;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
     /*String mPhoneNumber;*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -53,6 +57,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
 
         phnumber =  findViewById(R.id.phoneNumber);
         loginButton =(Button)findViewById(R.id.login);
+
+        database = FirebaseDatabase.getInstance();
 
         if (ActivityCompat.checkSelfPermission(this, READ_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, READ_PHONE_NUMBERS) ==
@@ -72,6 +78,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
         if(null != registeredPhNumber && !registeredPhNumber.isEmpty()) {
             goToMainActivity();
         }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -106,6 +113,12 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
         String selectedUser = (String) spinner.getSelectedItem();
         if (null != selectedUser && !selectedUser.isEmpty()) {
             app.setUserType(UserType.valueOf(selectedUser));
+        }
+        UserType userType = app.getUserType();
+        if(userType.equals(UserType.OFFICER)){
+            ref = database.getReference("PublicServiceDevice");
+            ref.keepSynced(true);
+            ref.child("DeviceId").push().setValue(app.getAndriodDeviceId());
         }
         SharedPreferences.Editor editor = sharedpreferences.edit();
         String key = Phone + phoneNumber;
