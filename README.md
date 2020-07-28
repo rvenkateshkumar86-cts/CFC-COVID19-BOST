@@ -7,29 +7,27 @@
 ## Project Team Name - Team Spartan
 
 ## Project description
-BOST (Be on Safe Track) is a mobile app used for both COVID-19 patient and ordinary users. It helps ordinary user to check with his vital signs wheather he got affected with covid-19. Also, it helps user to track travel coordinates, check temperature and notify the doctors based on temperature exceeds threshold values.
+BOST (Be on Safe Track) is a mobile app used for COVID-19 patient, Public servant officer and normal user. It helps user to take self-assessment test based on age, temperature etc. In addition, it helps public servant officer to track travel coordinates, check temperature and notify them based on temperature exceeds threshold values. It helps BOST app user to know latest news on COVID 19 update and to chat with assistance in order to get help based on nearby hospital details, quarantine activities for COVID 19 patients etc.
 
 ## Current Problems
 
-In day-to-day process, identify the COVID-19 positive patient is very difficult by verifying the user from multiple channels like airport, trains, buses etc. We need to maintain separate security team to manual check user using temperature check machine and updating on the software manually.  Self-quarantine patients has to check with doctor frequently over phone calls/messaging manually about daily activities. Also, patient need someone help to get daily foods and others.
-In addition, a user can check wheather there is a chance to be covid-19 affected by checking his vitals.
+In day-to-day process, identify the COVID-19 positive patient is very difficult by verifying the user from multiple channels like airport, trains, buses etc. We need to maintain separate security team to manual check user using temperature check machine and updating on the software manually. Self-quarantine patients has to check with doctor frequently over phone calls/messaging manually about daily activities. In addition, patient need someone help to get daily foods and others. In addition, for normal user their do not know how to check self-assessment in order to know chances of affection.
 
 ## Solutions
 
-An Mobile app will be maintains based on IBM cloud services in order to support the following features in which different way of services will be availed to the  user.
-*	The user can himself monitor his health by providing basic vital signs and can check wheather there is a chance to him to be affected with covid 19 and go further for a physical test.
-*	Temperature check feature and able to send temperature details to Watson IOT services for monitoring if any users temperature exceeds more than 98 Fahrenheit temperature.
- This temperature records will be helpful for hospitals ,so that , at which time a person got temperature variation can be identified and they can easy track the covid -19 contact cases.
-*	Chatbot assistant to provide the following features. 
-	  * To provide information about the number of covid patients in an area. This area should be as small as 3-5 km range. Based on this others can decide on whether to enter       these areas or bypass their routes/shopping destinations/visits to these areas based on the statistics
-    * To provides facility for the most needy people especially those infected with covid and under treatment in residences and those people who cannot perform their daily
-      needs like cooking, travel to hospital for testing due to infection etc. They should be able to register and put requests for food, medicine, vehicle/ambulance needs
-      etc and their requests should be accepted with high priority
-    * To provide statistics of nearby hospitals with covid treatment facilities. It should provide data about provision for ventilators, doctors, free beds/rooms, ICU
-      vacancies etc so that patients need not go in search of vacancies from one hospital to other and thus help in reducing queuing up in hospital
-    * Also, helps self-quarantine person to engage with chatbot about daily activities, exercise, food etc based on age and weight categories.
-* Notify user about frequent update on VIRUS related news feed based on location.
-* Track user travels based on Geospatial analytics details.
+An Mobile app will be maintains based on IBM cloud services in order to support the following features.
+* To take self-assessment test using (Blood Pressure, Pulse Rate, Respiratory Rate) to know about chance of affection. 
+* Temperature check feature and able to send temperature details to Watson IOT services for monitoring if any users temperature exceeds more than 98 degree temperature. This data will recorded separately for each person. This temperature records will be helpful for Public servant officer, so that, at which time or place a person got temperature variation can be identified and they can easy track the COVID -19 contact cases.
+
+* Chatbot assistant to provide the following features. 
+	* To provide information about the number of covid patients in an area. This area should be as small as 3-5 km range. Based on this others can decide on whether to 	      enter these areas or bypass their routes/shopping destinations/visits to these areas based on the statistics
+	* To provides facility for the neediest people especially those infected with COVID and under treatment in residences and those people who cannot perform their daily 		needs like cooking, travel to hospital for testing due to infection etc. They should be able to register and put requests for food, medicine, vehicle/ambulance
+	  needs etc. and their requests should be accepted with high priority
+	* To provide statistics of nearby hospitals with COVID treatment facilities. It should provide data about provision for ventilators, doctors, free beds/rooms, ICU 	     vacancies etc. so that patients need not go in search of vacancies from one hospital to other and thus help in reducing queuing up in hospital
+	* In addition, helps self-quarantine person to engage with chat-bot about daily activities, exercise, food etc. based on age and weight categories.
+* Notify users and doctors about frequent update on COVID related news feed based on location.
+* Track user travels based on Google API with firebase database.
+
 
 ## High Level Architecture Diagram
 
@@ -72,8 +70,6 @@ An Mobile app will be maintains based on IBM cloud services in order to support 
 * [IBM Cloud Storage](https://www.ibm.com/in-en/cloud/object-storage): Cloud Object Storage makes it possible to store practically limitless amounts of data, simply and cost effectively. It is commonly used for data archiving and backup, web and mobile applications, and as scalable, persistent storage for analytics.
 
 * [IBM Cloud Functions](https://cloud.ibm.com/openwhisk): Functions-as-a-Service (FaaS) platform used to run your application code without servers, scale it automatically, and pay nothing when it is not in use.It offers easy access to IBM Watson APIs within the event-trigger-action workflow, makes cognitive analysis of application data inherent to your workflows.
-
-* [IBM Bluemix Geospatial Location](https://ibm-watson-data-lab.github.io/location-tracker): The Location Tracker demo app uses geolocation to track and map user movements. The app uses an Offline First approach, storing the geolocation data locally on the device using Cloudant Sync or PouchDB, and then syncing this data with IBM Cloudant. The Location Tracker demo app is available as a native mobile app or as a web app. Both versions share a mobile backend built with Node.js.
 
 * [IBM Watson AutoAI Cloud Services](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/autoai-build.html): The AutoAI graphical tool automatically analyzes your data and generates candidate model pipelines customized for your predictive modeling problem.  These model pipelines are created iteratively as AutoAI analyzes your dataset and discovers data transformations, algorithms, and parameter settings that work best for your problem setting. 
 
