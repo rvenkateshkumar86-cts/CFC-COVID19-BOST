@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.model.UserType;
+import com.ibm.mobilefirstplatform.clientsdk.andriod.push.services.NotificationConnector;
 import com.ibm.mobilefirstplatform.clientsdk.android.push.R;
 
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
@@ -59,6 +60,11 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
         loginButton =(Button)findViewById(R.id.login);
 
         database = FirebaseDatabase.getInstance();
+        String appGuid = getResources().getString(R.string.appGUID);
+        String clientSecret = getResources().getString(R.string.pushClientSecret);
+        String pushBackendURL = getResources().getString(R.string.pushBackUrl);
+        String functionDiscoveryURL = getResources().getString(R.string.discoveryFunctionUrl);
+        NotificationConnector.initialize(pushBackendURL, functionDiscoveryURL, clientSecret, getApplicationContext());
 
         if (ActivityCompat.checkSelfPermission(this, READ_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, READ_PHONE_NUMBERS) ==
@@ -101,6 +107,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
                 }
                 String mPhoneNumber = tMgr.getLine1Number();
                 phnumber.setText(mPhoneNumber);
+                app.setPhoneNumber(mPhoneNumber);
+                String no = app.getPhoneNumber();
                 Log.i(TAG, "Ph.No"+mPhoneNumber);
                 break;
         }
@@ -111,6 +119,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         String phoneNumber  = phnumber.getText().toString();
         String selectedUser = (String) spinner.getSelectedItem();
+        app.setPhoneNumber(phoneNumber);
+        String no = app.getPhoneNumber();
         if (null != selectedUser && !selectedUser.isEmpty()) {
             app.setUserType(UserType.valueOf(selectedUser));
         }
@@ -128,7 +138,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
     }
 
     private void goToMainActivity() {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(),CheckTemperatureActivity.class);
         startActivity(intent);
     }
 }
