@@ -78,7 +78,7 @@ limitations under the License.
 
         <TextView
             android:id="@+id/trackButton"
-            android:layout_width="141dp"
+            android:layout_width="145dp"
             android:layout_height="120dp"
             android:background="@color/colorPrimary"
             android:clickable="true"
@@ -97,7 +97,7 @@ limitations under the License.
 
         <TextView
             android:id="@+id/tempButton"
-            android:layout_width="141dp"
+            android:layout_width="145dp"
             android:layout_height="120dp"
 
             android:fontFamily="sans-serif-medium"
@@ -125,7 +125,7 @@ limitations under the License.
         android:padding="10dp">
         <TextView
             android:id="@+id/medicalButton"
-            android:layout_width="141dp"
+            android:layout_width="145dp"
             android:layout_height="120dp"
             android:fontFamily="sans-serif-medium"
             android:layout_centerInParent="true"
@@ -142,7 +142,7 @@ limitations under the License.
 
         <TextView
             android:id="@+id/chatbotButton"
-            android:layout_width="141dp"
+            android:layout_width="145dp"
             android:layout_height="120dp"
             android:layout_marginLeft="20dp"
             android:layout_alignParentLeft="true"
