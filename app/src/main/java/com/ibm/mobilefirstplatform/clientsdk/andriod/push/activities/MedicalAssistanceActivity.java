@@ -38,7 +38,7 @@ public class MedicalAssistanceActivity extends Activity {
         resultTextView.setText("");
         awesomeValidation.addValidation(this, R.id.gender, "[FM]$", R.string.gendererror);
         awesomeValidation.addValidation(this,R.id.age, "^0*(?:[1-9][0-9]?|100)$", R.string.ageerror);
-        awesomeValidation.addValidation(this,R.id.temp, "^0*(?:[1-9][0-9]?|100)$", R.string.temperror);
+        awesomeValidation.addValidation(this,R.id.temp, "^0*(?:[1-5][0-9]?|50)$", R.string.temperror);
         awesomeValidation.addValidation(this,R.id.respRate, "^0*(?:[1-9][0-9]?|100)$", R.string.resprateerror);
         awesomeValidation.addValidation(this,R.id.pulseRate, "^0*(?:[1-9][0-9][0-9]?|100)$", R.string.pulseRateerror);
         awesomeValidation.addValidation(this,R.id.oxySaturation, "^0*(?:[1-9][0-9]?|100)$", R.string.oxySaterror);
@@ -63,14 +63,14 @@ public class MedicalAssistanceActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         if(awesomeValidation.validate()){
-                        PatientDTO patientDto = new PatientDTO(gender.getText().toString(), Integer.parseInt(age.getText().toString()), Integer.parseInt(temp.getText().toString()), Integer.parseInt(respRate.getText().toString()), Integer.parseInt(pulseRate.getText().toString()), Integer.parseInt(oxySaturation.getText().toString()));
-                        AutoAIResponse response = connector.submitData(patientDto);
-                        if (null != response) {
-                            String result = String.valueOf(response.getPredictions().get(0).getValues().get(0));
-                            resultTextView.setText(result != null ? result.toLowerCase().contains("yes") ? "Chance of affected" : "You are safe" : "");
+                            PatientDTO patientDto = new PatientDTO(gender.getText().toString(), Integer.parseInt(age.getText().toString()), Integer.parseInt(temp.getText().toString()), Integer.parseInt(respRate.getText().toString()), Integer.parseInt(pulseRate.getText().toString()), Integer.parseInt(oxySaturation.getText().toString()));
+                            AutoAIResponse response = connector.submitData(patientDto);
+                            if (null != response) {
+                                String result = String.valueOf(response.getPredictions().get(0).getValues().get(0));
+                                resultTextView.setText(result != null ? result.toLowerCase().contains("yes") ? "Chance of affected" : "You are safe" : "");
+                            }
                         }
-                    }
-                   }});
+                    }});
 
             }
         } catch (Exception e) {
