@@ -140,7 +140,8 @@ public class BOSTStarterApplication extends Application {
                     try {
                         // If the stored property is a Set<String> type, parse the profile and add it to the list of
                         // profiles.
-                        if ((profile = settings.getStringSet(key, null)) != null) {
+                        if (settings.getStringSet(key, null) != null) {
+                            profile = settings.getStringSet(key, null);
                             Log.d(TAG, "profile name: " + key);
                             IoTDevice newProfile = new IoTDevice(profile);
                             this.profiles.add(newProfile);

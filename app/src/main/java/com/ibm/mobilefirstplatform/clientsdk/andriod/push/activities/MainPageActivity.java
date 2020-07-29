@@ -30,7 +30,7 @@ import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.READ_SMS;
 import static android.content.ContentValues.TAG;
 
-public class MainPageActivity extends Activity implements View.OnClickListener{
+public class MainPageActivity extends Activity {
 
 
     TextView phnumber;
@@ -80,7 +80,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
             requestPermission();
         }
         String phoneNumber  = phnumber.getText().toString();
-        String registeredPhNumber =sharedpreferences.getString(Phone + phoneNumber,phoneNumber);
+        String registeredPhNumber = sharedpreferences.getString(Phone + phoneNumber, "");
         if(null != registeredPhNumber && !registeredPhNumber.isEmpty()) {
             goToMainActivity();
         }
@@ -114,13 +114,11 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
         }
     }
 
-
-    @Override
-    public void onClick(View view) {
+    public void handleHome(View view) {
         String selectedUser = (String) spinner.getSelectedItem();
         String phoneNumber = app.getPhoneNumber();
         if (null != selectedUser && !selectedUser.isEmpty()) {
-            app.setUserType(UserType.valueOf(selectedUser));
+            app.setUserType(UserType.getUserType(selectedUser));
         }
         UserType userType = app.getUserType();
         if(userType.equals(UserType.OFFICER)){
