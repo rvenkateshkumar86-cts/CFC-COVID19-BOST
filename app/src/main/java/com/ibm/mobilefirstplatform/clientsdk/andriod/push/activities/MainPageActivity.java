@@ -117,10 +117,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        String phoneNumber  = phnumber.getText().toString();
         String selectedUser = (String) spinner.getSelectedItem();
-        app.setPhoneNumber(phoneNumber);
-        String no = app.getPhoneNumber();
+        String phoneNumber = app.getPhoneNumber();
         if (null != selectedUser && !selectedUser.isEmpty()) {
             app.setUserType(UserType.valueOf(selectedUser));
         }

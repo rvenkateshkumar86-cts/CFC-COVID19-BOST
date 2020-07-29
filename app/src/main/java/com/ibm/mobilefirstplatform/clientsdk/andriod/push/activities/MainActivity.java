@@ -63,13 +63,10 @@ public class MainActivity extends Activity {
         push = MFPPush.getInstance();
         String appGuid = getResources().getString(R.string.appGUID);
         String clientSecret = getResources().getString(R.string.pushClientSecret);
-        String pushBackendURL = getResources().getString(R.string.pushBackUrl);
-        String functionDiscoveryURL = getResources().getString(R.string.discoveryFunctionUrl);
         // Initialize Push client
         // You can find your App Guid and Client Secret by navigating to the Configure section of your Push dashboard, click Mobile Options (Upper Right Hand Corner)
         // TODO: Please replace <APP_GUID> and <CLIENT_SECRET> with a valid App GUID and Client Secret from the Push dashboard Mobile Options
         push.initialize(this, appGuid, clientSecret);
-        NotificationConnector.initialize(pushBackendURL, functionDiscoveryURL, clientSecret, getApplicationContext());
         // Create notification listener and enable pop up notification when a message is received
         notificationListener = new MFPPushNotificationListener() {
             @Override
