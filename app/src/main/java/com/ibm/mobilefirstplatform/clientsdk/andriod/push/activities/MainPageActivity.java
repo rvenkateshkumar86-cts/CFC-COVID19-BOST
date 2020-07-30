@@ -12,12 +12,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ibm.mobilefirstplatform.clientsdk.andriod.push.BOSTStarterApplication;
@@ -33,7 +36,7 @@ import static android.content.ContentValues.TAG;
 public class MainPageActivity extends Activity {
 
 
-    TextView phnumber;
+    EditText phnumber;
     Button loginButton;
     public static final String Phone = "phoneKey-";
 
@@ -42,6 +45,8 @@ public class MainPageActivity extends Activity {
     private Spinner spinner;
     private FirebaseDatabase database;
     private DatabaseReference ref;
+    private String deviceId;
+    AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
     /*String mPhoneNumber;*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -65,25 +70,27 @@ public class MainPageActivity extends Activity {
         String pushBackendURL = getResources().getString(R.string.pushBackUrl);
         String functionDiscoveryURL = getResources().getString(R.string.discoveryFunctionUrl);
         NotificationConnector.initialize(pushBackendURL, functionDiscoveryURL, clientSecret, getApplicationContext());
-
-        if (ActivityCompat.checkSelfPermission(this, READ_SMS) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, READ_PHONE_NUMBERS) ==
-                        PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-            String mPhoneNumber = tMgr.getLine1Number();
-            phnumber.setText(mPhoneNumber);
-            app.setPhoneNumber(mPhoneNumber);
-             Log.i(TAG, "Ph.No"+mPhoneNumber);
-            return;
-        } else {
-            requestPermission();
-        }
-        String phoneNumber  = phnumber.getText().toString();
-        String registeredPhNumber = sharedpreferences.getString(Phone + phoneNumber, "");
+        awesomeValidation.addValidation(this,R.id.phoneNumber, "^[+]?[0-9]{10,13}$", R.string.phoneerror);
+        deviceId = app.getAndriodDeviceId();
+        String registeredPhNumber = sharedpreferences.getString(deviceId, "");
         if(null != registeredPhNumber && !registeredPhNumber.isEmpty()) {
             goToMainActivity();
+        } else {
+
+            if (ActivityCompat.checkSelfPermission(this, READ_SMS) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, READ_PHONE_NUMBERS) ==
+                            PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                    READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+                String mPhoneNumber = tMgr.getLine1Number();
+                phnumber.setText(mPhoneNumber);
+                Log.i(TAG, "Ph.No"+mPhoneNumber);
+                return;
+            } else {
+                requestPermission();
+            }
         }
+
 
     }
 
@@ -107,30 +114,30 @@ public class MainPageActivity extends Activity {
                 }
                 String mPhoneNumber = tMgr.getLine1Number();
                 phnumber.setText(mPhoneNumber);
-                app.setPhoneNumber(mPhoneNumber);
-                String no = app.getPhoneNumber();
                 Log.i(TAG, "Ph.No"+mPhoneNumber);
                 break;
         }
     }
 
     public void handleHome(View view) {
-        String selectedUser = (String) spinner.getSelectedItem();
-        String phoneNumber = app.getPhoneNumber();
-        if (null != selectedUser && !selectedUser.isEmpty()) {
-            app.setUserType(UserType.getUserType(selectedUser));
+        if (awesomeValidation.validate()) {
+            String selectedUser = (String) spinner.getSelectedItem();
+            String phoneNumber = phnumber.getText().toString();
+            app.setPhoneNumber(phoneNumber);
+            if (null != selectedUser && !selectedUser.isEmpty()) {
+                app.setUserType(UserType.getUserType(selectedUser));
+            }
+            UserType userType = app.getUserType();
+            if(userType.equals(UserType.OFFICER)){
+                ref = database.getReference("PublicServiceDevice");
+                ref.keepSynced(true);
+                ref.child("DeviceId").push().setValue(deviceId);
+            }
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(deviceId, phoneNumber);
+            editor.commit();
+            goToMainActivity();
         }
-        UserType userType = app.getUserType();
-        if(userType.equals(UserType.OFFICER)){
-            ref = database.getReference("PublicServiceDevice");
-            ref.keepSynced(true);
-            ref.child("DeviceId").push().setValue(app.getAndriodDeviceId());
-        }
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        String key = Phone + phoneNumber;
-        editor.putString(key, phoneNumber);
-        editor.commit();
-        goToMainActivity();
     }
 
     private void goToMainActivity() {

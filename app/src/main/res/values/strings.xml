@@ -117,6 +117,7 @@
     <string name="resprateerror">Respiratory Rate Invalid</string>
     <string name="pulseRateerror">PulseRate  Invalid</string>
     <string name="oxySaterror">Oxy Saturation is Invalid</string>
+    <string name="phoneerror">Phone number is invalid</string>
     <!-- End Login Fragment dialog -->
 
     <string name="what_s_on_your_mind">Enter your query</string>
