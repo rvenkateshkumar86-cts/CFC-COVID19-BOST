@@ -19,7 +19,7 @@ public final class AutoAIConnector {
 
     private static final String ml_instance_id = "dc37a6a5-8a8f-4c99-9c18-f403a58dd069";
 
-    private static final String IAM_API_KEY = "5JaxBbFaRLYTO_F_bVy3RJlHwNnvLl8zELiFwScx-89r";
+    private static final String IAM_API_KEY = "<AUTOAI_IAM_API_KEY>";
 
     private static final String predictionURL = "https://us-south.ml.cloud.ibm.com/v4/deployments/34b493b8-9137-4003-ac92-6e1757f7be4b/predictions";
 

@@ -3,10 +3,10 @@
 
     <!--Watson Assistant service credentials-->
     <!-- REPLACE `ASSISTANT_ID_HERE` with ID of the Assistant to use -->
-    <string name="assistant_id">6ae59bb4-71cc-4e46-a73b-92f9edacaea8</string>
+    <string name="assistant_id"></string>
 
     <!-- REPLACE `ASSISTANT_API_KEY_HERE` with Watson Assistant service API Key-->
-    <string name="assistant_apikey">DTdIOpE5i-zXnornOEXaCrjEhZlzx0Ojh160NM1-mjXp</string>
+    <string name="assistant_apikey"></string>
 
     <!-- The URL provided below is for DALLAS region/location -->
     <!-- If the Assistant service is created in another region/lpcation -->
@@ -16,7 +16,7 @@
 
     <!--Watson Speech To Text(STT) service credentials-->
     <!-- REPLACE `STT_API_KEY_HERE` with Watson Speech to Text service API Key-->
-    <string name="STT_apikey">UoUf4qNnohJ9Iug9V_5qVWNNadBiW71LElLtdvmFaHVq</string>
+    <string name="STT_apikey"></string>
     
     <!-- The URL provided below is for DALLAS region/location -->
     <!-- If the STT service is created in another region/lpcation -->
@@ -26,7 +26,7 @@
 
     <!--Watson Text To Speech(TTS) service credentials-->
     <!-- REPLACE `TTS_API_KEY_HERE` with Watson Text to Speech service API Key-->
-    <string name="TTS_apikey">3J8I16nwt16vfwYLfNx1ZiSqxNJAdXFzvjVyqWKy0CL7</string>
+    <string name="TTS_apikey"></string>
     
     <!-- The URL provided below is for DALLAS region/location -->
     <!-- If the TTS service is created in another region/lpcation -->
